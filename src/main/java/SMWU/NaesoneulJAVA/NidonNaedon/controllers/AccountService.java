@@ -21,7 +21,7 @@ public class AccountService {
         UUID accountId = UUID.randomUUID();
 
         //새 계좌에 UUID 설정
-        account.setAccountId(accountId.toString());
+        account.setAccountId("ai/"+accountId.toString());
         return accountRepository.save(account);
     }
 }
