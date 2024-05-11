@@ -10,10 +10,10 @@ public class ExpenditureDetails {
     private String expenditureCurrency;
     private double expenditureExchangeRate;
     private List<String> expenditureParticipant;
-    private LocalDate expenditureDate;
+    private String expenditureDate;
     private String expenditurePhoto;
 
-    public ExpenditureDetails(String expenditureId, String expenditureName, double expenditureAmount, String expenditureCurrency, double expenditureExchangeRate, List<String> expenditureParticipant, LocalDate expenditureDate, String expenditurePhoto) {
+    public ExpenditureDetails(String expenditureId, String expenditureName, double expenditureAmount, String expenditureCurrency, double expenditureExchangeRate, List<String> expenditureParticipant, String expenditureDate, String expenditurePhoto) {
         this.expenditureId = expenditureId;
         this.expenditureName = expenditureName;
         this.expenditureAmount = expenditureAmount;
@@ -72,11 +72,11 @@ public class ExpenditureDetails {
         this.expenditureParticipant = expenditureParticipant;
     }
 
-    public LocalDate getExpenditureDate() {
+    public String getExpenditureDate() {
         return expenditureDate;
     }
 
-    public void setExpenditureDate(LocalDate expenditureDate) {
+    public void setExpenditureDate(String expenditureDate) {
         this.expenditureDate = expenditureDate;
     }
 
