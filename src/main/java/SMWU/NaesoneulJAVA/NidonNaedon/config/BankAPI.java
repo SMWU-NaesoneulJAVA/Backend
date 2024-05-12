@@ -4,59 +4,66 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import SMWU.NaesoneulJAVA.NidonNaedon.models.ExpenditureDetails;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class BankAPI {
+    private static final String AUTH_KEY = "nxSyzSsoHPIAFRYMF0hWei14HrXlCg5b";
+    private static final String API_URL = "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON";
 
-    public static void main(String[] args) {
-        String authKey = "nxSyzSsoHPIAFRYMF0hWei14HrXlCg5b";
-        String data = "AP01";
-
-        ExpenditureDetails expenditureDetails = new ExpenditureDetails(null, null, 0, null, 0, null, null, null);
-        String expenditureDate = expenditureDetails.getExpenditureDate();
-
-        // API 요청 URL 조합
-        String apiUrl = "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON"
-                + "?authkey=" + authKey
-                + "&searchdate=" + expenditureDate // expenditureDate로 변경
-                + "&data=" + data;
-
+    public static void setExchangeRate(ExpenditureDetails expenditure) {
         try {
-            // API에 HTTP 요청 보내기
-            URL url = new URL(apiUrl);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
+            String searchDate = expenditure.getExpenditureDate();
+            String expenditureCurrency = expenditure.getExpenditureCurrency();
 
-            // 응답 받기
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            StringBuilder response = new StringBuilder();
-            String line;
-            while ((line = br.readLine()) != null) {
-                response.append(line);
-            }
-            br.close();
+            LocalDate date = LocalDate.parse(searchDate, DateTimeFormatter.BASIC_ISO_DATE);
+            LocalDate today = LocalDate.now();
 
-            // 응답 결과 확인
-            System.out.println("Response from API: " + response.toString());
-
-            // JSON 파싱하여 DEAL_BAS_R 값을 추출하여 ExpenditureDetails 클래스에 대입
-            JSONObject jsonResponse = new JSONObject(response.toString());
-            JSONArray exchangeList = jsonResponse.getJSONArray("list");
-            if (exchangeList.length() > 0) {
-                JSONObject exchangeData = exchangeList.getJSONObject(0);
-                double exchangeRate = exchangeData.getDouble("DEAL_BAS_R");
-                expenditureDetails.setExpenditureExchangeRate(exchangeRate);
-                System.out.println("Exchange Rate: " + exchangeRate);
-            } else {
-                System.out.println("No exchange rate data found.");
+            if (date.isAfter(today)) {
+                date = today; // 검색 날짜가 미래인 경우 오늘 날짜로 설정
             }
 
+            Double exchangeRate = null;
+            LocalDate originalDate = date;
+
+            while (exchangeRate == null) {
+                String apiUrl = API_URL + "?authkey=" + AUTH_KEY + "&searchdate=" + date.format(DateTimeFormatter.BASIC_ISO_DATE) + "&data=AP01";
+
+                URL url = new URL(apiUrl);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String response = br.readLine();
+                br.close();
+
+                JSONArray jsonArray = new JSONArray(response);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    String curUnit = jsonObject.getString("cur_unit");
+                    if (curUnit.equals(expenditureCurrency)) {
+                        String exchangeRateStr = jsonObject.getString("deal_bas_r");
+                        exchangeRateStr = exchangeRateStr.replace(",", ""); // 쉼표 제거
+                        exchangeRate = Double.parseDouble(exchangeRateStr);
+                        break;
+                    }
+                }
+
+                if (exchangeRate == null) {
+                    date = date.minusDays(1); // 하루 전 날짜로 설정
+                }
+            }
+
+            expenditure.setExpenditureExchangeRate(exchangeRate);
         } catch (Exception e) {
             e.printStackTrace();
+            // 오류 발생 시 기본값:-1.0
+            expenditure.setExpenditureExchangeRate(-1.0);
+            System.out.println("Error occurred while fetching exchange rate for " + expenditure.getExpenditureCurrency());
         }
     }
 }
-
