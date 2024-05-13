@@ -24,7 +24,7 @@ public class BankAPI {
             LocalDate today = LocalDate.now();
 
             if (date.isAfter(today)) {
-                date = today; // 검색 날짜가 미래인 경우 오늘 날짜로 설정
+                date = today;
             }
 
             Double exchangeRate = null;
@@ -46,22 +46,20 @@ public class BankAPI {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     String curUnit = jsonObject.getString("cur_unit");
                     if (curUnit.equals(expenditureCurrency)) {
-                        String exchangeRateStr = jsonObject.getString("deal_bas_r");
-                        exchangeRateStr = exchangeRateStr.replace(",", ""); // 쉼표 제거
+                        String exchangeRateStr = jsonObject.getString("deal_bas_r").replace(",", "");
                         exchangeRate = Double.parseDouble(exchangeRateStr);
                         break;
                     }
                 }
 
                 if (exchangeRate == null) {
-                    date = date.minusDays(1); // 하루 전 날짜로 설정
+                    date = date.minusDays(1);
                 }
             }
 
             expenditure.setExpenditureExchangeRate(exchangeRate);
         } catch (Exception e) {
             e.printStackTrace();
-            // 오류 발생 시 기본값:-1.0
             expenditure.setExpenditureExchangeRate(-1.0);
             System.out.println("Error occurred while fetching exchange rate for " + expenditure.getExpenditureCurrency());
         }
