@@ -1,4 +1,4 @@
-package SMWU.NaesoneulJAVA.NidonNaedon.controllers;
+package SMWU.NaesoneulJAVA.NidonNaedon.services;
 
 import SMWU.NaesoneulJAVA.NidonNaedon.models.Account;
 import SMWU.NaesoneulJAVA.NidonNaedon.repositories.AccountRepository;
