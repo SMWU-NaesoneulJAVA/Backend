@@ -1,8 +1,7 @@
-package SMWU.NaesoneulJAVA.NidonNaedon.controllers;
+package SMWU.NaesoneulJAVA.NidonNaedon.services;
 
 import SMWU.NaesoneulJAVA.NidonNaedon.models.Account;
 import SMWU.NaesoneulJAVA.NidonNaedon.repositories.AccountRepository;
-import SMWU.NaesoneulJAVA.NidonNaedon.services.AccountService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
