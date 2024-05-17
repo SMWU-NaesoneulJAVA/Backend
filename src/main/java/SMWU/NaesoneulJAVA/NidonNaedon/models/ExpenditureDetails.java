@@ -1,25 +1,31 @@
 package SMWU.NaesoneulJAVA.NidonNaedon.models;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
+@Entity
 public class ExpenditureDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String expenditureId;
     private String expenditureName;
     private double expenditureAmount;
     private String expenditureCurrency;
     private double expenditureExchangeRate;
+
+    @ElementCollection
     private List<String> expenditureParticipant;
+
     private String expenditureDate;
     private String expenditurePhoto;
+    private String accountId;
 
-    public ExpenditureDetails(String expenditureId, String expenditureName, double expenditureAmount, String expenditureCurrency, double expenditureExchangeRate, List<String> expenditureParticipant, String expenditureDate, String expenditurePhoto) {
+    public ExpenditureDetails() {}
+
+    public ExpenditureDetails(String expenditureId, String expenditureName, double expenditureAmount, String expenditureCurrency, double expenditureExchangeRate, List<String> expenditureParticipant, String expenditureDate, String expenditurePhoto, String accountId) {
         this.expenditureId = expenditureId;
         this.expenditureName = expenditureName;
         this.expenditureAmount = expenditureAmount;
@@ -28,6 +34,15 @@ public class ExpenditureDetails {
         this.expenditureParticipant = expenditureParticipant;
         this.expenditureDate = expenditureDate;
         this.expenditurePhoto = expenditurePhoto;
+        this.accountId = accountId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getExpenditureId() {
@@ -94,4 +109,11 @@ public class ExpenditureDetails {
         this.expenditurePhoto = expenditurePhoto;
     }
 
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
 }

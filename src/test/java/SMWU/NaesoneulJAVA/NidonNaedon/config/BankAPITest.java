@@ -1,3 +1,4 @@
+// BankAPITest.java
 package SMWU.NaesoneulJAVA.NidonNaedon.config;
 
 import SMWU.NaesoneulJAVA.NidonNaedon.models.ExpenditureDetails;
@@ -13,7 +14,8 @@ public class BankAPITest {
                 0.0,
                 Arrays.asList("Participant 1", "Participant 2"),
                 "20230512",
-                "photo.jpg"
+                "photo.jpg",
+                "account1"
         );
 
         BankAPI.setExchangeRate(expenditureUSD);
@@ -28,7 +30,8 @@ public class BankAPITest {
                 0.0,
                 Arrays.asList("Participant 3", "Participant 4"),
                 "20250501",
-                "photo.jpg"
+                "photo.jpg",
+                "account2"
         );
 
         BankAPI.setExchangeRate(expenditureEUR);

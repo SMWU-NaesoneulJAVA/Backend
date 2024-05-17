@@ -1,3 +1,4 @@
+// ExpenditureDetailsRepositoryTest.java
 package SMWU.NaesoneulJAVA.NidonNaedon.repositories;
 
 import SMWU.NaesoneulJAVA.NidonNaedon.models.ExpenditureDetails;
@@ -25,9 +26,29 @@ class ExpenditureDetailsRepositoryTest {
     public void testGetAllExpenditureDetails() {
         String accountId = "ai/testId";
 
-        ExpenditureDetails expenditure1 = new ExpenditureDetails("expenditureId1", "Expenditure 1", 100.0, "USD", 1.0, List.of("Participant1", "Participant2"), "20240501", "photo1.jpg");
+        ExpenditureDetails expenditure1 = new ExpenditureDetails(
+                "expenditureId1",
+                "Expenditure 1",
+                100.0,
+                "USD",
+                1.0,
+                List.of("Participant1", "Participant2"),
+                "20240501",
+                "photo1.jpg",
+                accountId
+        );
 
-        ExpenditureDetails expenditure2 = new ExpenditureDetails("expenditureId2", "Expenditure 2", 200.0, "EUR", 1.2, List.of("Participant3", "Participant4"), "20240301", null);
+        ExpenditureDetails expenditure2 = new ExpenditureDetails(
+                "expenditureId2",
+                "Expenditure 2",
+                200.0,
+                "EUR",
+                1.2,
+                List.of("Participant3", "Participant4"),
+                "20240301",
+                null,
+                accountId
+        );
 
         List<ExpenditureDetails> mockExpenditureList = List.of(expenditure1, expenditure2);
 
@@ -50,6 +71,7 @@ class ExpenditureDetailsRepositoryTest {
         assertEquals(List.of("Participant1", "Participant2"), firstExpenditure.getExpenditureParticipant());
         assertEquals("20240501", firstExpenditure.getExpenditureDate());
         assertEquals("photo1.jpg", firstExpenditure.getExpenditurePhoto());
+        assertEquals(accountId, firstExpenditure.getAccountId());
 
         ExpenditureDetails secondExpenditure = result.get(1);
         assertEquals("expenditureId2", secondExpenditure.getExpenditureId());
@@ -60,5 +82,6 @@ class ExpenditureDetailsRepositoryTest {
         assertEquals(List.of("Participant3", "Participant4"), secondExpenditure.getExpenditureParticipant());
         assertEquals("20240301", secondExpenditure.getExpenditureDate());
         assertNull(secondExpenditure.getExpenditurePhoto());
+        assertEquals(accountId, secondExpenditure.getAccountId());
     }
 }
