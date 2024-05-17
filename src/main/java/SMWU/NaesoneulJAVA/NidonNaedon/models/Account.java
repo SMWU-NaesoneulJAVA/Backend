@@ -1,11 +1,25 @@
 package SMWU.NaesoneulJAVA.NidonNaedon.models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 import java.util.List;
 
 @Entity
 public class Account {
+
+    @Id
+    private String accountId;
+    private String accountName;
+    private String accountSchedule;
+    private String accountCurrency;
+    private Double accountExchangeRate;
+
+    @ElementCollection
+    private List<String> accountParticipantList;
+
+    // Getters and Setters
     public String getAccountId() {
         return accountId;
     }
@@ -53,15 +67,4 @@ public class Account {
     public void setAccountParticipantList(List<String> accountParticipantList) {
         this.accountParticipantList = accountParticipantList;
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String accountId;
-    private String accountName;
-    private String accountSchedule;
-    private String accountCurrency;
-    private Double accountExchangeRate;
-
-    @ElementCollection
-    private List<String> accountParticipantList;
 }

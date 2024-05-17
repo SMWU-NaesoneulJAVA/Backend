@@ -17,11 +17,11 @@ public class AccountService {
     }
 
     public Account createAccount(Account account) {
-        //UUID 생성
+        // UUID 생성
         UUID accountId = UUID.randomUUID();
 
-        //새 계좌에 UUID 설정
-        account.setAccountId("ai/"+accountId.toString());
+        // 새 계좌에 UUID 설정
+        account.setAccountId("ai/" + accountId.toString());
         return accountRepository.save(account);
     }
 }
