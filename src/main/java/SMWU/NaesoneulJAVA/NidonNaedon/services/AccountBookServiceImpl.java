@@ -1,5 +1,6 @@
 package SMWU.NaesoneulJAVA.NidonNaedon.services;
 
+import SMWU.NaesoneulJAVA.NidonNaedon.exceptions.ResourceNotFoundException;
 import SMWU.NaesoneulJAVA.NidonNaedon.models.AccountBook;
 import SMWU.NaesoneulJAVA.NidonNaedon.repositories.AccountBookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,8 @@ public class AccountBookServiceImpl implements AccountBookService {
 
     @Override
     public AccountBook getAccountBookByAccountId(String accountId) {
-        return accountBookRepository.findByAccountId(accountId);
+        return accountBookRepository.findByAccountId(accountId)
+                .orElseThrow(() -> new ResourceNotFoundException("AccountBook not found with id: " + accountId));
     }
 
     @Override
@@ -30,7 +32,7 @@ public class AccountBookServiceImpl implements AccountBookService {
             accountBook.setId(id);
             return accountBookRepository.save(accountBook);
         } else {
-            return null;
+            throw new ResourceNotFoundException("AccountBook not found with id: " + id);
         }
     }
 
@@ -40,7 +42,7 @@ public class AccountBookServiceImpl implements AccountBookService {
             accountBookRepository.deleteById(id);
             return true;
         } else {
-            return false;
+            throw new ResourceNotFoundException("AccountBook not found with id: " + id);
         }
     }
 }
