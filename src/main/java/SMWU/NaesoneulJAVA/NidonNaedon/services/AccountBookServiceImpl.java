@@ -18,4 +18,29 @@ public class AccountBookServiceImpl implements AccountBookService {
     public AccountBook getAccountBookByAccountId(String accountId) {
         return accountBookRepository.findByAccountId(accountId);
     }
+
+    @Override
+    public AccountBook createAccountBook(AccountBook accountBook) {
+        return accountBookRepository.save(accountBook);
+    }
+
+    @Override
+    public AccountBook updateAccountBook(Long id, AccountBook accountBook) {
+        if (accountBookRepository.existsById(id)) {
+            accountBook.setId(id);
+            return accountBookRepository.save(accountBook);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public boolean deleteAccountBook(Long id) {
+        if (accountBookRepository.existsById(id)) {
+            accountBookRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
