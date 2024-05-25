@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
@@ -14,16 +16,26 @@ public class ExpenditureDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Expenditure ID is required")
     private String expenditureId;
+
+    @NotNull(message = "Expenditure name is required")
     private String expenditureName;
+
     private double expenditureAmount;
+
+    @NotNull(message = "Expenditure currency is required")
     private String expenditureCurrency;
+
     private double expenditureExchangeRate;
 
     @ElementCollection
+    @Size(min = 1, message = "At least one participant is required")
     private List<String> expenditureParticipant;
 
+    @NotNull(message = "Expenditure date is required")
     private String expenditureDate;
+
     private String expenditurePhoto;
     private String accountId;
 

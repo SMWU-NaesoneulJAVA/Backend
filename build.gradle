@@ -22,6 +22,7 @@ dependencies {
 	implementation 'org.json:json:20240303'
 	implementation 'mysql:mysql-connector-java:8.0.33'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+	implementation 'javax.validation:validation-api:2.0.1.Final'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'

@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/accountbook")
 public class AccountBookController {
@@ -28,13 +30,13 @@ public class AccountBookController {
     }
 
     @PostMapping
-    public ResponseEntity<AccountBook> createAccountBook(@RequestBody AccountBook accountBook) {
+    public ResponseEntity<AccountBook> createAccountBook(@Valid @RequestBody AccountBook accountBook) {
         AccountBook newAccountBook = accountBookService.createAccountBook(accountBook);
         return new ResponseEntity<>(newAccountBook, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AccountBook> updateAccountBook(@PathVariable("id") Long id, @RequestBody AccountBook accountBook) {
+    public ResponseEntity<AccountBook> updateAccountBook(@PathVariable("id") Long id, @Valid @RequestBody AccountBook accountBook) {
         AccountBook updatedAccountBook = accountBookService.updateAccountBook(id, accountBook);
         if (updatedAccountBook != null) {
             return new ResponseEntity<>(updatedAccountBook, HttpStatus.OK);
