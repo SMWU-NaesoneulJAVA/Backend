@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -48,6 +51,27 @@ public class ExpenditureDetailsController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/{id}/upload")
+    public ResponseEntity<String> uploadPhoto(@PathVariable("id") Long id, @RequestParam("file") MultipartFile file) {
+        try {
+            String fileName = file.getOriginalFilename();
+            String filePath = "uploads/" + fileName;
+            File dest = new File(filePath);
+            file.transferTo(dest);
+
+            ExpenditureDetails expenditureDetails = expenditureDetailsService.getExpenditureById(id);
+            if (expenditureDetails == null) {
+                return new ResponseEntity<>("Expenditure not found", HttpStatus.NOT_FOUND);
+            }
+            expenditureDetails.setExpenditurePhoto(filePath);
+            expenditureDetailsService.updateExpenditure(id, expenditureDetails);
+
+            return new ResponseEntity<>("File uploaded successfully", HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>("File upload failed", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

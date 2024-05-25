@@ -39,20 +39,9 @@ public class ExpenditureDetails {
     private String expenditurePhoto;
     private String accountId;
 
-    public ExpenditureDetails() {}
-
-    public ExpenditureDetails(String expenditureId, String expenditureName, double expenditureAmount, String expenditureCurrency, double expenditureExchangeRate, List<String> expenditureParticipant, String expenditureDate, String expenditurePhoto, String accountId) {
-        this.expenditureId = expenditureId;
-        this.expenditureName = expenditureName;
-        this.expenditureAmount = expenditureAmount;
-        this.expenditureCurrency = expenditureCurrency;
-        this.expenditureExchangeRate = expenditureExchangeRate;
-        this.expenditureParticipant = expenditureParticipant;
-        this.expenditureDate = expenditureDate;
-        this.expenditurePhoto = expenditurePhoto;
-        this.accountId = accountId;
-    }
-
+    @NotNull(message = "Expenditure category is required")
+    private String expenditureCategory;
+    
     public Long getId() {
         return id;
     }
@@ -131,5 +120,13 @@ public class ExpenditureDetails {
 
     public void setAccountId(String accountId) {
         this.accountId = accountId;
+    }
+
+    public String getExpenditureCategory() {
+        return expenditureCategory;
+    }
+
+    public void setExpenditureCategory(String expenditureCategory) {
+        this.expenditureCategory = expenditureCategory;
     }
 }

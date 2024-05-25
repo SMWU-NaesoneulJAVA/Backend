@@ -2,21 +2,25 @@ package SMWU.NaesoneulJAVA.NidonNaedon.controllers;
 
 import SMWU.NaesoneulJAVA.NidonNaedon.models.AccountBook;
 import SMWU.NaesoneulJAVA.NidonNaedon.services.AccountBookService;
+import SMWU.NaesoneulJAVA.NidonNaedon.services.InvitationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/accountbook")
 public class AccountBookController {
     private final AccountBookService accountBookService;
+    private final InvitationService invitationService;
 
     @Autowired
-    public AccountBookController(AccountBookService accountBookService) {
+    public AccountBookController(AccountBookService accountBookService, InvitationService invitationService) {
         this.accountBookService = accountBookService;
+        this.invitationService = invitationService;
     }
 
     @GetMapping("/{accountId}")
@@ -53,5 +57,12 @@ public class AccountBookController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @PostMapping("/{accountId}/invite")
+    public ResponseEntity<String> inviteParticipant(@PathVariable("accountId") String accountId) {
+        String invitationLink = invitationService.generateInvitationLink(accountId);
+        invitationService.sendKakaoInvitation(invitationLink);
+        return new ResponseEntity<>("Invitation sent successfully via KakaoTalk", HttpStatus.OK);
     }
 }

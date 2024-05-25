@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ExpenditureDetailsServiceImpl implements ExpenditureDetailsService {
@@ -44,5 +45,11 @@ public class ExpenditureDetailsServiceImpl implements ExpenditureDetailsService 
         } else {
             return false;
         }
+    }
+
+    @Override
+    public ExpenditureDetails getExpenditureById(Long id) {
+        Optional<ExpenditureDetails> expenditureDetails = expenditureDetailsRepository.findById(id);
+        return expenditureDetails.orElse(null);
     }
 }

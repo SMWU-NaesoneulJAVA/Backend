@@ -9,4 +9,5 @@ public interface ExpenditureDetailsService {
     ExpenditureDetails createExpenditure(ExpenditureDetails expenditureDetails);
     ExpenditureDetails updateExpenditure(Long id, ExpenditureDetails expenditureDetails);
     boolean deleteExpenditure(Long id);
+    ExpenditureDetails getExpenditureById(Long id);
 }
