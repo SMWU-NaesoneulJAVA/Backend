@@ -5,6 +5,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 
@@ -17,7 +21,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/public/**").permitAll()
+                        .requestMatchers("/public/**", "/h2-console/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(httpBasic -> httpBasic
@@ -26,6 +30,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 );
+
         return http.build();
     }
 
@@ -34,5 +39,15 @@ public class SecurityConfig {
         BasicAuthenticationEntryPoint entryPoint = new BasicAuthenticationEntryPoint();
         entryPoint.setRealmName("myRealm");
         return entryPoint;
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        UserDetails user = User.withDefaultPasswordEncoder()
+                .username("user")
+                .password("password")
+                .roles("USER")
+                .build();
+        return new InMemoryUserDetailsManager(user);
     }
 }
