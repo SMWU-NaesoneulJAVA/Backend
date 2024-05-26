@@ -41,7 +41,25 @@ public class ExpenditureDetails {
 
     @NotNull(message = "Expenditure category is required")
     private String expenditureCategory;
-    
+
+    // 생성자 추가
+    public ExpenditureDetails(String expenditureId, String expenditureName, double expenditureAmount,
+                              String expenditureCurrency, double expenditureExchangeRate,
+                              List<String> expenditureParticipant, String expenditureDate,
+                              String expenditurePhoto, String accountId) {
+        this.expenditureId = expenditureId;
+        this.expenditureName = expenditureName;
+        this.expenditureAmount = expenditureAmount;
+        this.expenditureCurrency = expenditureCurrency;
+        this.expenditureExchangeRate = expenditureExchangeRate;
+        this.expenditureParticipant = expenditureParticipant;
+        this.expenditureDate = expenditureDate;
+        this.expenditurePhoto = expenditurePhoto;
+        this.accountId = accountId;
+        this.expenditureCategory = "defaultCategory"; // 기본 카테고리 설정
+    }
+
+    // Getter 및 Setter 메서드
     public Long getId() {
         return id;
     }

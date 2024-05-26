@@ -1,13 +1,14 @@
-// ExpenditureDetailsRepositoryTest.java
 package SMWU.NaesoneulJAVA.NidonNaedon.repositories;
 
 import SMWU.NaesoneulJAVA.NidonNaedon.models.ExpenditureDetails;
 import SMWU.NaesoneulJAVA.NidonNaedon.services.ExpenditureDetailsService;
+import SMWU.NaesoneulJAVA.NidonNaedon.services.ExpenditureDetailsServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,7 +21,7 @@ class ExpenditureDetailsRepositoryTest {
     private ExpenditureDetailsRepository expenditureDetailsRepository;
 
     @InjectMocks
-    private ExpenditureDetailsService expenditureDetailsService;
+    private ExpenditureDetailsServiceImpl expenditureDetailsService; // 변경된 부분
 
     @Test
     public void testGetAllExpenditureDetails() {
