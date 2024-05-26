@@ -1,4 +1,3 @@
-// BankAPITest.java
 package SMWU.NaesoneulJAVA.NidonNaedon.config;
 
 import SMWU.NaesoneulJAVA.NidonNaedon.models.ExpenditureDetails;
@@ -18,7 +17,8 @@ public class BankAPITest {
                 "account1"
         );
 
-        BankAPI.setExchangeRate(expenditureUSD);
+        BankAPI bankAPI = new BankAPI();
+        bankAPI.setExchangeRate(expenditureUSD);
 
         System.out.println("Expenditure Exchange Rate (USD): " + expenditureUSD.getExpenditureExchangeRate());
 
@@ -34,7 +34,7 @@ public class BankAPITest {
                 "account2"
         );
 
-        BankAPI.setExchangeRate(expenditureEUR);
+        bankAPI.setExchangeRate(expenditureEUR);
 
         System.out.println("Expenditure Exchange Rate (EUR): " + expenditureEUR.getExpenditureExchangeRate());
     }

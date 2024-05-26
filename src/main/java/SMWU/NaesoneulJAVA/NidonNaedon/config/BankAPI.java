@@ -6,16 +6,26 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
+import SMWU.NaesoneulJAVA.NidonNaedon.models.ExchangeRate;
 import SMWU.NaesoneulJAVA.NidonNaedon.models.ExpenditureDetails;
+import SMWU.NaesoneulJAVA.NidonNaedon.repositories.ExchangeRateRepository;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class BankAPI {
+
+    @Autowired
+    private ExchangeRateRepository exchangeRateRepository;
+
     private static final String AUTH_KEY = "nxSyzSsoHPIAFRYMF0hWei14HrXlCg5b";
     private static final String API_URL = "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON";
 
-    public static void setExchangeRate(ExpenditureDetails expenditure) {
+    public void setExchangeRate(ExpenditureDetails expenditure) {
         try {
             String searchDate = expenditure.getExpenditureDate();
             String expenditureCurrency = expenditure.getExpenditureCurrency();
@@ -27,8 +37,13 @@ public class BankAPI {
                 date = today;
             }
 
+            Optional<ExchangeRate> optionalExchangeRate = exchangeRateRepository.findByCurrencyAndDate(expenditureCurrency, date.toString());
+            if (optionalExchangeRate.isPresent()) {
+                expenditure.setExpenditureExchangeRate(optionalExchangeRate.get().getRate());
+                return;
+            }
+
             Double exchangeRate = null;
-            LocalDate originalDate = date;
 
             while (exchangeRate == null) {
                 String apiUrl = API_URL + "?authkey=" + AUTH_KEY + "&searchdate=" + date.format(DateTimeFormatter.BASIC_ISO_DATE) + "&data=AP01";
@@ -48,6 +63,13 @@ public class BankAPI {
                     if (curUnit.equals(expenditureCurrency)) {
                         String exchangeRateStr = jsonObject.getString("deal_bas_r").replace(",", "");
                         exchangeRate = Double.parseDouble(exchangeRateStr);
+
+                        ExchangeRate newRate = new ExchangeRate();
+                        newRate.setCurrency(expenditureCurrency);
+                        newRate.setDate(date.toString());
+                        newRate.setRate(exchangeRate);
+                        exchangeRateRepository.save(newRate);
+
                         break;
                     }
                 }
@@ -61,7 +83,6 @@ public class BankAPI {
         } catch (Exception e) {
             e.printStackTrace();
             expenditure.setExpenditureExchangeRate(-1.0);
-            System.out.println("Error occurred while fetching exchange rate for " + expenditure.getExpenditureCurrency());
         }
     }
 }

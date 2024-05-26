@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
@@ -14,22 +16,37 @@ public class ExpenditureDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Expenditure ID is required")
     private String expenditureId;
+
+    @NotNull(message = "Expenditure name is required")
     private String expenditureName;
+
     private double expenditureAmount;
+
+    @NotNull(message = "Expenditure currency is required")
     private String expenditureCurrency;
+
     private double expenditureExchangeRate;
 
     @ElementCollection
+    @Size(min = 1, message = "At least one participant is required")
     private List<String> expenditureParticipant;
 
+    @NotNull(message = "Expenditure date is required")
     private String expenditureDate;
+
     private String expenditurePhoto;
     private String accountId;
 
-    public ExpenditureDetails() {}
+    @NotNull(message = "Expenditure category is required")
+    private String expenditureCategory;
 
-    public ExpenditureDetails(String expenditureId, String expenditureName, double expenditureAmount, String expenditureCurrency, double expenditureExchangeRate, List<String> expenditureParticipant, String expenditureDate, String expenditurePhoto, String accountId) {
+    // 생성자 추가
+    public ExpenditureDetails(String expenditureId, String expenditureName, double expenditureAmount,
+                              String expenditureCurrency, double expenditureExchangeRate,
+                              List<String> expenditureParticipant, String expenditureDate,
+                              String expenditurePhoto, String accountId) {
         this.expenditureId = expenditureId;
         this.expenditureName = expenditureName;
         this.expenditureAmount = expenditureAmount;
@@ -39,8 +56,10 @@ public class ExpenditureDetails {
         this.expenditureDate = expenditureDate;
         this.expenditurePhoto = expenditurePhoto;
         this.accountId = accountId;
+        this.expenditureCategory = "defaultCategory"; // 기본 카테고리 설정
     }
 
+    // Getter 및 Setter 메서드
     public Long getId() {
         return id;
     }
@@ -119,5 +138,13 @@ public class ExpenditureDetails {
 
     public void setAccountId(String accountId) {
         this.accountId = accountId;
+    }
+
+    public String getExpenditureCategory() {
+        return expenditureCategory;
+    }
+
+    public void setExpenditureCategory(String expenditureCategory) {
+        this.expenditureCategory = expenditureCategory;
     }
 }

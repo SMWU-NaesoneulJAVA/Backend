@@ -9,5 +9,4 @@ public class NidonNaedonApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(NidonNaedonApplication.class, args);
 	}
-
 }
