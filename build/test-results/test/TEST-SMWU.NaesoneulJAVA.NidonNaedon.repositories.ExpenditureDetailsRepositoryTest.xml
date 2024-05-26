@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="SMWU.NaesoneulJAVA.NidonNaedon.repositories.ExpenditureDetailsRepositoryTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-05-26T05:56:25" hostname="sinhoyeon-ui-MacBookPro.local" time="0.124">
+  <properties/>
+  <testcase name="testGetAllExpenditureDetails()" classname="SMWU.NaesoneulJAVA.NidonNaedon.repositories.ExpenditureDetailsRepositoryTest" time="0.124"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

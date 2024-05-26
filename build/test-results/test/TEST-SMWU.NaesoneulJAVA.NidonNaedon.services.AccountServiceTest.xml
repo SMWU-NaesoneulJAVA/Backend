@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="SMWU.NaesoneulJAVA.NidonNaedon.services.AccountServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-05-26T05:56:25" hostname="sinhoyeon-ui-MacBookPro.local" time="0.035">
+  <properties/>
+  <testcase name="testCreateAccount()" classname="SMWU.NaesoneulJAVA.NidonNaedon.services.AccountServiceTest" time="0.035"/>
+  <system-out><![CDATA[accountId: ai/a5a880c1-84fd-49ff-a01e-d8b6526917a7
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
