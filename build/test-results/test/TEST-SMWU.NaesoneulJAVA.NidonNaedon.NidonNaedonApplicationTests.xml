@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="SMWU.NaesoneulJAVA.NidonNaedon.NidonNaedonApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-05-26T05:56:25" hostname="sinhoyeon-ui-MacBookPro.local" time="0.259">
+<testsuite name="SMWU.NaesoneulJAVA.NidonNaedon.NidonNaedonApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-05-26T06:01:51" hostname="sinhoyeon-ui-MacBookPro.local" time="0.285">
   <properties/>
-  <testcase name="contextLoads()" classname="SMWU.NaesoneulJAVA.NidonNaedon.NidonNaedonApplicationTests" time="0.259"/>
-  <system-out><![CDATA[14:56:23.336 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [SMWU.NaesoneulJAVA.NidonNaedon.NidonNaedonApplicationTests]: NidonNaedonApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-14:56:23.381 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration SMWU.NaesoneulJAVA.NidonNaedon.NidonNaedonApplication for test class SMWU.NaesoneulJAVA.NidonNaedon.NidonNaedonApplicationTests
+  <testcase name="contextLoads()" classname="SMWU.NaesoneulJAVA.NidonNaedon.NidonNaedonApplicationTests" time="0.285"/>
+  <system-out><![CDATA[15:01:49.489 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [SMWU.NaesoneulJAVA.NidonNaedon.NidonNaedonApplicationTests]: NidonNaedonApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+15:01:49.532 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration SMWU.NaesoneulJAVA.NidonNaedon.NidonNaedonApplication for test class SMWU.NaesoneulJAVA.NidonNaedon.NidonNaedonApplicationTests
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -13,7 +13,7 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.2.5)
 
-2024-05-26T14:56:23.526+09:00  WARN 8382 --- [NidonNaedon] [    Test worker] ory$DuplicateJsonObjectContextCustomizer : 
+2024-05-26T15:01:49.686+09:00  WARN 10302 --- [NidonNaedon] [    Test worker] ory$DuplicateJsonObjectContextCustomizer : 
 
 Found multiple occurrences of org.json.JSONObject on the class path:
 
@@ -22,21 +22,21 @@ Found multiple occurrences of org.json.JSONObject on the class path:
 
 You may wish to exclude one of them to ensure predictable runtime behavior
 
-2024-05-26T14:56:23.532+09:00  INFO 8382 --- [NidonNaedon] [    Test worker] S.N.N.NidonNaedonApplicationTests        : Starting NidonNaedonApplicationTests using Java 17.0.11 with PID 8382 (started by hoyeon in /Users/hoyeon/Desktop/NidonNaedon)
-2024-05-26T14:56:23.533+09:00  INFO 8382 --- [NidonNaedon] [    Test worker] S.N.N.NidonNaedonApplicationTests        : No active profile set, falling back to 1 default profile: "default"
-2024-05-26T14:56:23.847+09:00  INFO 8382 --- [NidonNaedon] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-05-26T14:56:23.874+09:00  INFO 8382 --- [NidonNaedon] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22 ms. Found 4 JPA repository interfaces.
-2024-05-26T14:56:24.065+09:00  INFO 8382 --- [NidonNaedon] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-05-26T14:56:24.084+09:00  INFO 8382 --- [NidonNaedon] [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
-2024-05-26T14:56:24.097+09:00  INFO 8382 --- [NidonNaedon] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2024-05-26T14:56:24.187+09:00  INFO 8382 --- [NidonNaedon] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-05-26T14:56:24.197+09:00  INFO 8382 --- [NidonNaedon] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-05-26T14:56:24.337+09:00  INFO 8382 --- [NidonNaedon] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3a709cc7
-2024-05-26T14:56:24.338+09:00  INFO 8382 --- [NidonNaedon] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-05-26T14:56:24.648+09:00  INFO 8382 --- [NidonNaedon] [    Test worker] o.h.m.i.EntityInstantiatorPojoStandard   : HHH000182: No default (no-argument) constructor for class: SMWU.NaesoneulJAVA.NidonNaedon.models.ExpenditureDetails (class must be instantiated by Interceptor)
-2024-05-26T14:56:24.747+09:00  INFO 8382 --- [NidonNaedon] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-05-26T15:01:49.692+09:00  INFO 10302 --- [NidonNaedon] [    Test worker] S.N.N.NidonNaedonApplicationTests        : Starting NidonNaedonApplicationTests using Java 17.0.11 with PID 10302 (started by hoyeon in /Users/hoyeon/Desktop/NidonNaedon)
+2024-05-26T15:01:49.692+09:00  INFO 10302 --- [NidonNaedon] [    Test worker] S.N.N.NidonNaedonApplicationTests        : No active profile set, falling back to 1 default profile: "default"
+2024-05-26T15:01:50.020+09:00  INFO 10302 --- [NidonNaedon] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-26T15:01:50.049+09:00  INFO 10302 --- [NidonNaedon] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 26 ms. Found 4 JPA repository interfaces.
+2024-05-26T15:01:50.279+09:00  INFO 10302 --- [NidonNaedon] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-26T15:01:50.302+09:00  INFO 10302 --- [NidonNaedon] [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-05-26T15:01:50.318+09:00  INFO 10302 --- [NidonNaedon] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-05-26T15:01:50.417+09:00  INFO 10302 --- [NidonNaedon] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-05-26T15:01:50.429+09:00  INFO 10302 --- [NidonNaedon] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-05-26T15:01:50.585+09:00  INFO 10302 --- [NidonNaedon] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@516c20de
+2024-05-26T15:01:50.586+09:00  INFO 10302 --- [NidonNaedon] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-05-26T15:01:50.920+09:00  INFO 10302 --- [NidonNaedon] [    Test worker] o.h.m.i.EntityInstantiatorPojoStandard   : HHH000182: No default (no-argument) constructor for class: SMWU.NaesoneulJAVA.NidonNaedon.models.ExpenditureDetails (class must be instantiated by Interceptor)
+2024-05-26T15:01:51.023+09:00  INFO 10302 --- [NidonNaedon] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
 Hibernate: create table account (account_id varchar(255) not null, account_currency varchar(255), account_exchange_rate float(53), account_name varchar(255), account_schedule varchar(255), primary key (account_id)) engine=InnoDB
-2024-05-26T14:56:24.779+09:00  WARN 8382 --- [NidonNaedon] [    Test worker] o.h.t.s.i.ExceptionHandlerLoggedImpl     : GenerationTarget encountered exception accepting command : Error executing DDL "create table account (account_id varchar(255) not null, account_currency varchar(255), account_exchange_rate float(53), account_name varchar(255), account_schedule varchar(255), primary key (account_id)) engine=InnoDB" via JDBC [Table 'account' already exists]
+2024-05-26T15:01:51.069+09:00  WARN 10302 --- [NidonNaedon] [    Test worker] o.h.t.s.i.ExceptionHandlerLoggedImpl     : GenerationTarget encountered exception accepting command : Error executing DDL "create table account (account_id varchar(255) not null, account_currency varchar(255), account_exchange_rate float(53), account_name varchar(255), account_schedule varchar(255), primary key (account_id)) engine=InnoDB" via JDBC [Table 'account' already exists]
 
 org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "create table account (account_id varchar(255) not null, account_currency varchar(255), account_exchange_rate float(53), account_name varchar(255), account_schedule varchar(255), primary key (account_id)) engine=InnoDB" via JDBC [Table 'account' already exists]
 	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94) ~[hibernate-core-6.4.4.Final.jar:6.4.4.Final]
@@ -180,7 +180,7 @@ Caused by: java.sql.SQLSyntaxErrorException: Table 'account' already exists
 	... 129 common frames omitted
 
 Hibernate: alter table account_account_participant_list add constraint FK8a4ut3e6u8evvsfl0r5wa5w0y foreign key (account_account_id) references account (account_id)
-2024-05-26T14:56:24.799+09:00  WARN 8382 --- [NidonNaedon] [    Test worker] o.h.t.s.i.ExceptionHandlerLoggedImpl     : GenerationTarget encountered exception accepting command : Error executing DDL "alter table account_account_participant_list add constraint FK8a4ut3e6u8evvsfl0r5wa5w0y foreign key (account_account_id) references account (account_id)" via JDBC [Failed to add the foreign key constraint. Missing column 'account_id' for constraint 'FK8a4ut3e6u8evvsfl0r5wa5w0y' in the referenced table 'account']
+2024-05-26T15:01:51.085+09:00  WARN 10302 --- [NidonNaedon] [    Test worker] o.h.t.s.i.ExceptionHandlerLoggedImpl     : GenerationTarget encountered exception accepting command : Error executing DDL "alter table account_account_participant_list add constraint FK8a4ut3e6u8evvsfl0r5wa5w0y foreign key (account_account_id) references account (account_id)" via JDBC [Failed to add the foreign key constraint. Missing column 'account_id' for constraint 'FK8a4ut3e6u8evvsfl0r5wa5w0y' in the referenced table 'account']
 
 org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table account_account_participant_list add constraint FK8a4ut3e6u8evvsfl0r5wa5w0y foreign key (account_account_id) references account (account_id)" via JDBC [Failed to add the foreign key constraint. Missing column 'account_id' for constraint 'FK8a4ut3e6u8evvsfl0r5wa5w0y' in the referenced table 'account']
 	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94) ~[hibernate-core-6.4.4.Final.jar:6.4.4.Final]
@@ -322,10 +322,10 @@ Caused by: java.sql.SQLException: Failed to add the foreign key constraint. Miss
 	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80) ~[hibernate-core-6.4.4.Final.jar:6.4.4.Final]
 	... 128 common frames omitted
 
-2024-05-26T14:56:24.832+09:00  INFO 8382 --- [NidonNaedon] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-05-26T14:56:25.055+09:00  WARN 8382 --- [NidonNaedon] [    Test worker] o.s.security.core.userdetails.User       : User.withDefaultPasswordEncoder() is considered unsafe for production and is only intended for sample applications.
-2024-05-26T14:56:25.294+09:00  INFO 8382 --- [NidonNaedon] [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2e41e0c, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2e214d39, org.springframework.security.web.context.SecurityContextHolderFilter@79a88f45, org.springframework.security.web.header.HeaderWriterFilter@69c7fb94, org.springframework.web.filter.CorsFilter@622e39d, org.springframework.security.web.authentication.logout.LogoutFilter@18a349cb, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@517fb2c3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@38447073, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@56f4f385, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@43a9988a, org.springframework.security.web.session.SessionManagementFilter@498cf1dc, org.springframework.security.web.access.ExceptionTranslationFilter@7e092ca, org.springframework.security.web.access.intercept.AuthorizationFilter@78fd1179]
-2024-05-26T14:56:25.460+09:00  INFO 8382 --- [NidonNaedon] [    Test worker] S.N.N.NidonNaedonApplicationTests        : Started NidonNaedonApplicationTests in 2.02 seconds (process running for 2.484)
+2024-05-26T15:01:51.119+09:00  INFO 10302 --- [NidonNaedon] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-26T15:01:51.336+09:00  WARN 10302 --- [NidonNaedon] [    Test worker] o.s.security.core.userdetails.User       : User.withDefaultPasswordEncoder() is considered unsafe for production and is only intended for sample applications.
+2024-05-26T15:01:51.581+09:00  INFO 10302 --- [NidonNaedon] [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5bbeb9e3, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@456beb8b, org.springframework.security.web.context.SecurityContextHolderFilter@72b4ecb2, org.springframework.security.web.header.HeaderWriterFilter@51f31fad, org.springframework.web.filter.CorsFilter@191cf38f, org.springframework.security.web.authentication.logout.LogoutFilter@2524f9bf, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@611ffa8d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5687ba39, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3fbf66e7, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2dc54b50, org.springframework.security.web.session.SessionManagementFilter@6b9b9cb9, org.springframework.security.web.access.ExceptionTranslationFilter@24244ea, org.springframework.security.web.access.intercept.AuthorizationFilter@6e200307]
+2024-05-26T15:01:51.759+09:00  INFO 10302 --- [NidonNaedon] [    Test worker] S.N.N.NidonNaedonApplicationTests        : Started NidonNaedonApplicationTests in 2.167 seconds (process running for 2.621)
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

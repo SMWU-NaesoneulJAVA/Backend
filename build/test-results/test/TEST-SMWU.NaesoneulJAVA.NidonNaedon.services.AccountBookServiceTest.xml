@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="SMWU.NaesoneulJAVA.NidonNaedon.services.AccountBookServiceTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2024-05-26T05:56:25" hostname="sinhoyeon-ui-MacBookPro.local" time="0.053">
+<testsuite name="SMWU.NaesoneulJAVA.NidonNaedon.services.AccountBookServiceTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2024-05-26T06:01:52" hostname="sinhoyeon-ui-MacBookPro.local" time="0.052">
   <properties/>
-  <testcase name="testDeleteAccountBook()" classname="SMWU.NaesoneulJAVA.NidonNaedon.services.AccountBookServiceTest" time="0.041"/>
+  <testcase name="testDeleteAccountBook()" classname="SMWU.NaesoneulJAVA.NidonNaedon.services.AccountBookServiceTest" time="0.04"/>
   <testcase name="testCreateAccountBook()" classname="SMWU.NaesoneulJAVA.NidonNaedon.services.AccountBookServiceTest" time="0.002"/>
   <testcase name="testUpdateAccountBook_NotFound()" classname="SMWU.NaesoneulJAVA.NidonNaedon.services.AccountBookServiceTest" time="0.002"/>
   <testcase name="testGetAccountBookByAccountId()" classname="SMWU.NaesoneulJAVA.NidonNaedon.services.AccountBookServiceTest" time="0.002"/>
-  <testcase name="testDeleteAccountBook_NotFound()" classname="SMWU.NaesoneulJAVA.NidonNaedon.services.AccountBookServiceTest" time="0.001"/>
-  <testcase name="testUpdateAccountBook()" classname="SMWU.NaesoneulJAVA.NidonNaedon.services.AccountBookServiceTest" time="0.001"/>
+  <testcase name="testDeleteAccountBook_NotFound()" classname="SMWU.NaesoneulJAVA.NidonNaedon.services.AccountBookServiceTest" time="0.002"/>
+  <testcase name="testUpdateAccountBook()" classname="SMWU.NaesoneulJAVA.NidonNaedon.services.AccountBookServiceTest" time="0.002"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
