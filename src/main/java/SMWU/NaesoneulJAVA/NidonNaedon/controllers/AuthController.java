@@ -25,9 +25,14 @@ public class AuthController {
     }
 
     private boolean isValidToken(String token) {
-        String credentials = token.replace("Basic ", "");
-        String decodedCredentials = new String(Base64.getDecoder().decode(credentials));
-        System.out.println("Decoded Credentials: " + decodedCredentials); // Debugging line
-        return "username:password".equals(decodedCredentials);
+        try {
+            String credentials = token.replace("Basic ", "");
+            String decodedCredentials = new String(Base64.getDecoder().decode(credentials));
+            System.out.println("Decoded Credentials: " + decodedCredentials); // Debugging line
+            return "user:password".equals(decodedCredentials);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid Base64 token: " + token);
+            return false;
+        }
     }
 }

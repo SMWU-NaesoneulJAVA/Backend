@@ -10,7 +10,7 @@ public class InvitationService {
     public String generateInvitationLink(String accountId) {
         String invitationCode = UUID.randomUUID().toString();
         // Save invitationCode and accountId mapping to database if needed
-        return "https://yourapp.com/invite?code=" + invitationCode + "&accountId=" + accountId;
+        return "https://nidonnaedon.com/invite?code=" + invitationCode + "&accountId=" + accountId;
     }
 
     public void sendKakaoInvitation(String link) {

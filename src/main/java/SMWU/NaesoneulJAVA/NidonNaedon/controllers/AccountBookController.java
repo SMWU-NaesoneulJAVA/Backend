@@ -1,15 +1,14 @@
 package SMWU.NaesoneulJAVA.NidonNaedon.controllers;
 
+import SMWU.NaesoneulJAVA.NidonNaedon.exceptions.ResourceNotFoundException;
 import SMWU.NaesoneulJAVA.NidonNaedon.models.AccountBook;
 import SMWU.NaesoneulJAVA.NidonNaedon.services.AccountBookService;
 import SMWU.NaesoneulJAVA.NidonNaedon.services.InvitationService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/accountbook")
@@ -25,11 +24,16 @@ public class AccountBookController {
 
     @GetMapping("/{accountId}")
     public ResponseEntity<AccountBook> getAccountBook(@PathVariable("accountId") String accountId) {
-        AccountBook accountBook = accountBookService.getAccountBookByAccountId(accountId);
-        if (accountBook != null) {
+        try {
+            System.out.println("Request received for accountId: " + accountId); // 디버깅 로그
+            AccountBook accountBook = accountBookService.getAccountBookByAccountId(accountId);
             return new ResponseEntity<>(accountBook, HttpStatus.OK);
-        } else {
+        } catch (ResourceNotFoundException e) {
+            e.printStackTrace(); // 디버깅 로그
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            e.printStackTrace(); // 디버깅 로그
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
