@@ -42,6 +42,10 @@ public class ExpenditureDetails {
     @NotNull(message = "Expenditure category is required")
     private String expenditureCategory;
 
+    // No-arg 생성자 추가
+    public ExpenditureDetails() {
+    }
+
     // 생성자 추가
     public ExpenditureDetails(String expenditureId, String expenditureName, double expenditureAmount,
                               String expenditureCurrency, double expenditureExchangeRate,
