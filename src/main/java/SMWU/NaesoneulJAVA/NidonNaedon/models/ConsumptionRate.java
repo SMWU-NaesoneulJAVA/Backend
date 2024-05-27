@@ -1,7 +1,13 @@
 package SMWU.NaesoneulJAVA.NidonNaedon.models;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = "소비율 정보")
 public class ConsumptionRate {
+    @Schema(description = "계정 이메일", example = "example@example.com")
     private String account_email;
+
+    @Schema(description = "소비 금액", example = "100.0")
     private double amount;
 
     public ConsumptionRate(String account_email, double amount) {
@@ -24,5 +30,4 @@ public class ConsumptionRate {
     public void setAccount_email(String account_email) {
         this.account_email = account_email;
     }
-
 }
