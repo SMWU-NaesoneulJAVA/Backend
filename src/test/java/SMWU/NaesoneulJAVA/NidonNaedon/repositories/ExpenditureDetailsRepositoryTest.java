@@ -1,7 +1,7 @@
 package SMWU.NaesoneulJAVA.NidonNaedon.repositories;
 
+import SMWU.NaesoneulJAVA.NidonNaedon.dto.ExpenditureDetailsDTO;
 import SMWU.NaesoneulJAVA.NidonNaedon.models.ExpenditureDetails;
-import SMWU.NaesoneulJAVA.NidonNaedon.services.ExpenditureDetailsService;
 import SMWU.NaesoneulJAVA.NidonNaedon.services.ExpenditureDetailsServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -22,6 +23,22 @@ class ExpenditureDetailsRepositoryTest {
 
     @InjectMocks
     private ExpenditureDetailsServiceImpl expenditureDetailsService; // 변경된 부분
+
+    private ExpenditureDetailsDTO convertToDTO(ExpenditureDetails expenditureDetails) {
+        ExpenditureDetailsDTO dto = new ExpenditureDetailsDTO();
+        dto.setId(expenditureDetails.getId());
+        dto.setExpenditureId(expenditureDetails.getExpenditureId());
+        dto.setExpenditureName(expenditureDetails.getExpenditureName());
+        dto.setExpenditureAmount(expenditureDetails.getExpenditureAmount());
+        dto.setExpenditureCurrency(expenditureDetails.getExpenditureCurrency());
+        dto.setExpenditureExchangeRate(expenditureDetails.getExpenditureExchangeRate());
+        dto.setExpenditureParticipant(expenditureDetails.getExpenditureParticipant());
+        dto.setExpenditureDate(expenditureDetails.getExpenditureDate());
+        dto.setExpenditurePhoto(expenditureDetails.getExpenditurePhoto());
+        dto.setAccountId(expenditureDetails.getAccountId());
+        dto.setExpenditureCategory(expenditureDetails.getExpenditureCategory());
+        return dto;
+    }
 
     @Test
     public void testGetAllExpenditureDetails() {
@@ -57,13 +74,13 @@ class ExpenditureDetailsRepositoryTest {
         when(expenditureDetailsRepository.findByAccountId(accountId)).thenReturn(mockExpenditureList);
 
         // 서비스 호출
-        List<ExpenditureDetails> result = expenditureDetailsService.getAllExpenditureDetailsByAccountId(accountId);
+        List<ExpenditureDetailsDTO> result = expenditureDetailsService.getAllExpenditureDetailsByAccountId(accountId);
 
         // 결과 검증
         assertNotNull(result);
         assertEquals(2, result.size());
 
-        ExpenditureDetails firstExpenditure = result.get(0);
+        ExpenditureDetailsDTO firstExpenditure = result.get(0);
         assertEquals("expenditureId1", firstExpenditure.getExpenditureId());
         assertEquals("Expenditure 1", firstExpenditure.getExpenditureName());
         assertEquals(100.0, firstExpenditure.getExpenditureAmount());
@@ -74,7 +91,7 @@ class ExpenditureDetailsRepositoryTest {
         assertEquals("photo1.jpg", firstExpenditure.getExpenditurePhoto());
         assertEquals(accountId, firstExpenditure.getAccountId());
 
-        ExpenditureDetails secondExpenditure = result.get(1);
+        ExpenditureDetailsDTO secondExpenditure = result.get(1);
         assertEquals("expenditureId2", secondExpenditure.getExpenditureId());
         assertEquals("Expenditure 2", secondExpenditure.getExpenditureName());
         assertEquals(200.0, secondExpenditure.getExpenditureAmount());

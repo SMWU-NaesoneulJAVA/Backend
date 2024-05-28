@@ -1,5 +1,6 @@
 package SMWU.NaesoneulJAVA.NidonNaedon.services;
 
+import SMWU.NaesoneulJAVA.NidonNaedon.dto.AccountDTO;
 import SMWU.NaesoneulJAVA.NidonNaedon.models.Account;
 import SMWU.NaesoneulJAVA.NidonNaedon.repositories.AccountRepository;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class AccountServiceTest {
-    //UUID 생성
+    // UUID 생성
     UUID accountId = UUID.randomUUID();
 
     @Mock
@@ -26,22 +27,46 @@ class AccountServiceTest {
     @InjectMocks
     private AccountService accountService;
 
+    private AccountDTO convertToDTO(Account account) {
+        AccountDTO accountDTO = new AccountDTO();
+        accountDTO.setAccountId(account.getAccountId());
+        accountDTO.setAccountName(account.getAccountName());
+        accountDTO.setAccountSchedule(account.getAccountSchedule());
+        accountDTO.setAccountCurrency(account.getAccountCurrency());
+        accountDTO.setAccountExchangeRate(account.getAccountExchangeRate());
+        accountDTO.setAccountParticipantList(account.getAccountParticipantList());
+        return accountDTO;
+    }
+
+    private Account convertToEntity(AccountDTO accountDTO) {
+        Account account = new Account();
+        account.setAccountId(accountDTO.getAccountId());
+        account.setAccountName(accountDTO.getAccountName());
+        account.setAccountSchedule(accountDTO.getAccountSchedule());
+        account.setAccountCurrency(accountDTO.getAccountCurrency());
+        account.setAccountExchangeRate(accountDTO.getAccountExchangeRate());
+        account.setAccountParticipantList(accountDTO.getAccountParticipantList());
+        return account;
+    }
+
     @Test
     public void testCreateAccount() {
-        Account account = new Account();
-        account.setAccountId(accountId.toString()); // 이전에 생성한 UUID로 accountId 설정
-        account.setAccountName("Test Account");
-        account.setAccountSchedule("2024-05-08~2024-05-08");
-        account.setAccountCurrency("USD");
-        account.setAccountExchangeRate(1000.0);
-        account.setAccountParticipantList(List.of("Participant1", "Participant2"));
+        AccountDTO accountDTO = new AccountDTO();
+        accountDTO.setAccountId(accountId.toString());
+        accountDTO.setAccountName("Test Account");
+        accountDTO.setAccountSchedule("2024-05-08~2024-05-08");
+        accountDTO.setAccountCurrency("USD");
+        accountDTO.setAccountExchangeRate(1000.0);
+        accountDTO.setAccountParticipantList(List.of("Participant1", "Participant2"));
+
+        Account account = convertToEntity(accountDTO);
 
         when(accountRepository.save(any(Account.class))).thenReturn(account);
 
-        Account createdAccount = accountService.createAccount(account);
+        AccountDTO createdAccount = accountService.createAccount(accountDTO);
 
         assertNotNull(createdAccount);
-        System.out.println("accountId: "+createdAccount.getAccountId());    //테스트 별로 값 다른 거 확인
+        System.out.println("accountId: " + createdAccount.getAccountId());
         assertEquals("Test Account", createdAccount.getAccountName());
         assertEquals("2024-05-08~2024-05-08", createdAccount.getAccountSchedule());
         assertEquals("USD", createdAccount.getAccountCurrency());

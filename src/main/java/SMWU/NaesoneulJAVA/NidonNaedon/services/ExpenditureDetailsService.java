@@ -1,13 +1,12 @@
 package SMWU.NaesoneulJAVA.NidonNaedon.services;
 
-import SMWU.NaesoneulJAVA.NidonNaedon.models.ExpenditureDetails;
-
+import SMWU.NaesoneulJAVA.NidonNaedon.dto.ExpenditureDetailsDTO;
 import java.util.List;
 
 public interface ExpenditureDetailsService {
-    List<ExpenditureDetails> getAllExpenditureDetailsByAccountId(String accountId);
-    ExpenditureDetails createExpenditure(ExpenditureDetails expenditureDetails);
-    ExpenditureDetails updateExpenditure(Long id, ExpenditureDetails expenditureDetails);
+    List<ExpenditureDetailsDTO> getAllExpenditureDetailsByAccountId(String accountId);
+    ExpenditureDetailsDTO createExpenditure(ExpenditureDetailsDTO expenditureDetailsDTO);
+    ExpenditureDetailsDTO updateExpenditure(Long id, ExpenditureDetailsDTO expenditureDetailsDTO);
     boolean deleteExpenditure(Long id);
-    ExpenditureDetails getExpenditureById(Long id);
+    ExpenditureDetailsDTO getExpenditureById(Long id);
 }

@@ -1,48 +1,57 @@
 package SMWU.NaesoneulJAVA.NidonNaedon.controllers;
 
+import SMWU.NaesoneulJAVA.NidonNaedon.dto.ExpenditureDetailsDTO;
+import SMWU.NaesoneulJAVA.NidonNaedon.services.ExpenditureDetailsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.List;
 
 @RestController
+@RequestMapping("/expenditures")
 @Tag(name = "ExpenditureDetails", description = "지출 내역 관련 API")
 public class ExpenditureDetailsController {
 
-    @Value("${file.upload-dir}")
-    private String uploadDir;
+    private final ExpenditureDetailsService expenditureDetailsService;
 
-    @PostMapping("/expenditures/{id}/upload")
-    @Operation(summary = "사진 업로드", description = "지출 내역에 사진을 업로드합니다.")
-    public ResponseEntity<?> uploadPhoto(@PathVariable("id") Long id, @RequestParam("file") MultipartFile file) {
-        try {
-            // 업로드 디렉토리 확인 및 생성
-            File uploadDirectory = new File(uploadDir);
-            if (!uploadDirectory.exists()) {
-                uploadDirectory.mkdirs();
-            }
+    @Autowired
+    public ExpenditureDetailsController(ExpenditureDetailsService expenditureDetailsService) {
+        this.expenditureDetailsService = expenditureDetailsService;
+    }
 
-            // 파일 이름 정리
-            String originalFileName = file.getOriginalFilename();
-            String cleanFileName = originalFileName.replaceAll("[^a-zA-Z0-9.-]", "_");
-            File destinationFile = new File(uploadDir, cleanFileName);
+    @GetMapping("/account/{accountId}")
+    @Operation(summary = "지출 내역 조회", description = "주어진 계정 ID로 모든 지출 내역을 조회합니다.")
+    public ResponseEntity<List<ExpenditureDetailsDTO>> getAllExpenditureDetailsByAccountId(@PathVariable("accountId") String accountId) {
+        List<ExpenditureDetailsDTO> expenditureDetails = expenditureDetailsService.getAllExpenditureDetailsByAccountId(accountId);
+        return new ResponseEntity<>(expenditureDetails, HttpStatus.OK);
+    }
 
-            // 파일 저장
-            file.transferTo(destinationFile);
+    @PostMapping
+    @Operation(summary = "지출 내역 생성", description = "새로운 지출 내역을 생성합니다.")
+    public ResponseEntity<ExpenditureDetailsDTO> createExpenditure(@RequestBody ExpenditureDetailsDTO expenditureDetailsDTO) {
+        ExpenditureDetailsDTO newExpenditureDetailsDTO = expenditureDetailsService.createExpenditure(expenditureDetailsDTO);
+        return new ResponseEntity<>(newExpenditureDetailsDTO, HttpStatus.CREATED);
+    }
 
-            return ResponseEntity.ok().build();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("File upload failed: " + e.getMessage());
+    @PutMapping("/{id}")
+    @Operation(summary = "지출 내역 수정", description = "주어진 ID로 지출 내역을 수정합니다.")
+    public ResponseEntity<ExpenditureDetailsDTO> updateExpenditure(@PathVariable("id") Long id, @RequestBody ExpenditureDetailsDTO expenditureDetailsDTO) {
+        ExpenditureDetailsDTO updatedExpenditureDetailsDTO = expenditureDetailsService.updateExpenditure(id, expenditureDetailsDTO);
+        if (updatedExpenditureDetailsDTO != null) {
+            return new ResponseEntity<>(updatedExpenditureDetailsDTO, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "지출 내역 삭제", description = "주어진 ID로 지출 내역을 삭제합니다.")
+    public ResponseEntity<Void> deleteExpenditure(@PathVariable("id") Long id) {
+        boolean isDeleted = expenditureDetailsService.deleteExpenditure(id);
+        return new ResponseEntity<>(isDeleted ? HttpStatus.NO_CONTENT : HttpStatus.NOT_FOUND);
     }
 }

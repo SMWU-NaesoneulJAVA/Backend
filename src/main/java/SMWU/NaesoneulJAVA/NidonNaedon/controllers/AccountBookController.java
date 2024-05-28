@@ -1,8 +1,11 @@
 package SMWU.NaesoneulJAVA.NidonNaedon.controllers;
 
-import SMWU.NaesoneulJAVA.NidonNaedon.services.InvitationService;
+import SMWU.NaesoneulJAVA.NidonNaedon.dto.AccountBookDTO;
+import SMWU.NaesoneulJAVA.NidonNaedon.exceptions.ResourceNotFoundException;
+import SMWU.NaesoneulJAVA.NidonNaedon.services.AccountBookService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,31 +15,49 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/accountbook")
 @Tag(name = "AccountBook", description = "가계부 관련 API")
 public class AccountBookController {
-    private final InvitationService invitationService;
+
+    private final AccountBookService accountBookService;
 
     @Autowired
-    public AccountBookController(InvitationService invitationService) {
-        this.invitationService = invitationService;
+    public AccountBookController(AccountBookService accountBookService) {
+        this.accountBookService = accountBookService;
     }
 
-    @PostMapping("/{accountId}/invite")
-    @Operation(summary = "참여자 초대", description = "주어진 가계부 ID로 참여자를 초대합니다.")
-    public ResponseEntity<String> inviteParticipant(@PathVariable("accountId") String accountId,
-                                                    @RequestParam String accessToken) {
-        String invitationLink = invitationService.generateInvitationLink(accountId);
-        invitationService.sendKakaoInvitation(accessToken, invitationLink);
-        return new ResponseEntity<>("Invitation sent successfully via KakaoTalk", HttpStatus.OK);
-    }
-
-    @GetMapping("/invite")
-    @Operation(summary = "초대 링크 처리", description = "초대 링크를 통해 참여자를 추가합니다.")
-    public ResponseEntity<String> handleInvitation(@RequestParam String accountId,
-                                                   @RequestParam String participant) {
-        boolean added = invitationService.addParticipant(accountId, participant);
-        if (added) {
-            return new ResponseEntity<>("Participant added successfully", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("AccountBook not found", HttpStatus.NOT_FOUND);
+    @GetMapping("/{accountId}")
+    @Operation(summary = "계정 장부 조회", description = "주어진 계정 ID로 가계부를 조회합니다.")
+    public ResponseEntity<AccountBookDTO> getAccountBook(@PathVariable("accountId") String accountId) {
+        try {
+            AccountBookDTO accountBookDTO = accountBookService.getAccountBookByAccountId(accountId);
+            return new ResponseEntity<>(accountBookDTO, HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @PostMapping
+    @Operation(summary = "가계부 생성", description = "새로운 가계부를 생성합니다.")
+    public ResponseEntity<AccountBookDTO> createAccountBook(@Valid @RequestBody AccountBookDTO accountBookDTO) {
+        AccountBookDTO newAccountBookDTO = accountBookService.createAccountBook(accountBookDTO);
+        return new ResponseEntity<>(newAccountBookDTO, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    @Operation(summary = "가계부 수정", description = "주어진 ID로 가계부를 수정합니다.")
+    public ResponseEntity<AccountBookDTO> updateAccountBook(@PathVariable("id") Long id, @Valid @RequestBody AccountBookDTO accountBookDTO) {
+        AccountBookDTO updatedAccountBookDTO = accountBookService.updateAccountBook(id, accountBookDTO);
+        if (updatedAccountBookDTO != null) {
+            return new ResponseEntity<>(updatedAccountBookDTO, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "가계부 삭제", description = "주어진 ID로 가계부를 삭제합니다.")
+    public ResponseEntity<Void> deleteAccountBook(@PathVariable("id") Long id) {
+        boolean isDeleted = accountBookService.deleteAccountBook(id);
+        return new ResponseEntity<>(isDeleted ? HttpStatus.NO_CONTENT : HttpStatus.NOT_FOUND);
     }
 }

@@ -1,5 +1,6 @@
 package SMWU.NaesoneulJAVA.NidonNaedon.services;
 
+import SMWU.NaesoneulJAVA.NidonNaedon.dto.AccountBookDTO;
 import SMWU.NaesoneulJAVA.NidonNaedon.exceptions.ResourceNotFoundException;
 import SMWU.NaesoneulJAVA.NidonNaedon.models.AccountBook;
 import SMWU.NaesoneulJAVA.NidonNaedon.repositories.AccountBookRepository;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AccountBookServiceImpl implements AccountBookService {
+
     private final AccountBookRepository accountBookRepository;
 
     @Autowired
@@ -18,23 +20,28 @@ public class AccountBookServiceImpl implements AccountBookService {
 
     @Override
     @Transactional(readOnly = true)
-    public AccountBook getAccountBookByAccountId(String accountId) {
-        return accountBookRepository.findByAccountId(accountId)
+    public AccountBookDTO getAccountBookByAccountId(String accountId) {
+        AccountBook accountBook = accountBookRepository.findByAccountId(accountId)
                 .orElseThrow(() -> new ResourceNotFoundException("AccountBook not found with id: " + accountId));
+        return convertToDTO(accountBook);
     }
 
     @Override
     @Transactional
-    public AccountBook createAccountBook(AccountBook accountBook) {
-        return accountBookRepository.save(accountBook);
+    public AccountBookDTO createAccountBook(AccountBookDTO accountBookDTO) {
+        AccountBook accountBook = convertToEntity(accountBookDTO);
+        AccountBook savedAccountBook = accountBookRepository.save(accountBook);
+        return convertToDTO(savedAccountBook);
     }
 
     @Override
     @Transactional
-    public AccountBook updateAccountBook(Long id, AccountBook accountBook) {
+    public AccountBookDTO updateAccountBook(Long id, AccountBookDTO accountBookDTO) {
         if (accountBookRepository.existsById(id)) {
+            AccountBook accountBook = convertToEntity(accountBookDTO);
             accountBook.setId(id);
-            return accountBookRepository.save(accountBook);
+            AccountBook updatedAccountBook = accountBookRepository.save(accountBook);
+            return convertToDTO(updatedAccountBook);
         } else {
             throw new ResourceNotFoundException("AccountBook not found with id: " + id);
         }
@@ -49,5 +56,20 @@ public class AccountBookServiceImpl implements AccountBookService {
         } else {
             throw new ResourceNotFoundException("AccountBook not found with id: " + id);
         }
+    }
+
+    private AccountBookDTO convertToDTO(AccountBook accountBook) {
+        AccountBookDTO accountBookDTO = new AccountBookDTO();
+        accountBookDTO.setId(accountBook.getId());
+        accountBookDTO.setAccountId(accountBook.getAccountId());
+        accountBookDTO.setExpenditureList(accountBook.getExpenditureList());
+        return accountBookDTO;
+    }
+
+    private AccountBook convertToEntity(AccountBookDTO accountBookDTO) {
+        AccountBook accountBook = new AccountBook();
+        accountBook.setAccountId(accountBookDTO.getAccountId());
+        accountBook.setExpenditureList(accountBookDTO.getExpenditureList());
+        return accountBook;
     }
 }

@@ -1,5 +1,6 @@
 package SMWU.NaesoneulJAVA.NidonNaedon.services;
 
+import SMWU.NaesoneulJAVA.NidonNaedon.dto.AccountBookDTO;
 import SMWU.NaesoneulJAVA.NidonNaedon.exceptions.ResourceNotFoundException;
 import SMWU.NaesoneulJAVA.NidonNaedon.models.AccountBook;
 import SMWU.NaesoneulJAVA.NidonNaedon.repositories.AccountBookRepository;
@@ -23,6 +24,22 @@ public class AccountBookServiceTest {
     @InjectMocks
     private AccountBookServiceImpl accountBookService;
 
+    private AccountBookDTO convertToDTO(AccountBook accountBook) {
+        AccountBookDTO accountBookDTO = new AccountBookDTO();
+        accountBookDTO.setId(accountBook.getId());
+        accountBookDTO.setAccountId(accountBook.getAccountId());
+        accountBookDTO.setExpenditureList(accountBook.getExpenditureList());
+        return accountBookDTO;
+    }
+
+    private AccountBook convertToEntity(AccountBookDTO accountBookDTO) {
+        AccountBook accountBook = new AccountBook();
+        accountBook.setId(accountBookDTO.getId());
+        accountBook.setAccountId(accountBookDTO.getAccountId());
+        accountBook.setExpenditureList(accountBookDTO.getExpenditureList());
+        return accountBook;
+    }
+
     @Test
     void testGetAccountBookByAccountId() {
         String accountId = "testAccountId";
@@ -31,7 +48,7 @@ public class AccountBookServiceTest {
 
         when(accountBookRepository.findByAccountId(accountId)).thenReturn(Optional.of(accountBook));
 
-        AccountBook result = accountBookService.getAccountBookByAccountId(accountId);
+        AccountBookDTO result = accountBookService.getAccountBookByAccountId(accountId);
 
         assertNotNull(result);
         assertEquals(accountId, result.getAccountId());
@@ -39,12 +56,14 @@ public class AccountBookServiceTest {
 
     @Test
     void testCreateAccountBook() {
-        AccountBook accountBook = new AccountBook();
-        accountBook.setAccountId("testAccountId");
+        AccountBookDTO accountBookDTO = new AccountBookDTO();
+        accountBookDTO.setAccountId("testAccountId");
 
-        when(accountBookRepository.save(accountBook)).thenReturn(accountBook);
+        AccountBook accountBook = convertToEntity(accountBookDTO);
 
-        AccountBook result = accountBookService.createAccountBook(accountBook);
+        when(accountBookRepository.save(any(AccountBook.class))).thenReturn(accountBook);
+
+        AccountBookDTO result = accountBookService.createAccountBook(accountBookDTO);
 
         assertNotNull(result);
         assertEquals("testAccountId", result.getAccountId());
@@ -53,14 +72,16 @@ public class AccountBookServiceTest {
     @Test
     void testUpdateAccountBook() {
         Long id = 1L;
-        AccountBook accountBook = new AccountBook();
-        accountBook.setId(id);
-        accountBook.setAccountId("testAccountId");
+        AccountBookDTO accountBookDTO = new AccountBookDTO();
+        accountBookDTO.setId(id);
+        accountBookDTO.setAccountId("testAccountId");
+
+        AccountBook accountBook = convertToEntity(accountBookDTO);
 
         when(accountBookRepository.existsById(id)).thenReturn(true);
-        when(accountBookRepository.save(accountBook)).thenReturn(accountBook);
+        when(accountBookRepository.save(any(AccountBook.class))).thenReturn(accountBook);
 
-        AccountBook result = accountBookService.updateAccountBook(id, accountBook);
+        AccountBookDTO result = accountBookService.updateAccountBook(id, accountBookDTO);
 
         assertNotNull(result);
         assertEquals(id, result.getId());
@@ -69,13 +90,13 @@ public class AccountBookServiceTest {
     @Test
     void testUpdateAccountBook_NotFound() {
         Long id = 1L;
-        AccountBook accountBook = new AccountBook();
-        accountBook.setId(id);
-        accountBook.setAccountId("testAccountId");
+        AccountBookDTO accountBookDTO = new AccountBookDTO();
+        accountBookDTO.setId(id);
+        accountBookDTO.setAccountId("testAccountId");
 
         when(accountBookRepository.existsById(id)).thenReturn(false);
 
-        assertThrows(ResourceNotFoundException.class, () -> accountBookService.updateAccountBook(id, accountBook));
+        assertThrows(ResourceNotFoundException.class, () -> accountBookService.updateAccountBook(id, accountBookDTO));
     }
 
     @Test

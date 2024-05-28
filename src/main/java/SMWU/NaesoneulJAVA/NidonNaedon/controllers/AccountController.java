@@ -1,6 +1,6 @@
 package SMWU.NaesoneulJAVA.NidonNaedon.controllers;
 
-import SMWU.NaesoneulJAVA.NidonNaedon.models.Account;
+import SMWU.NaesoneulJAVA.NidonNaedon.dto.AccountDTO;
 import SMWU.NaesoneulJAVA.NidonNaedon.services.AccountService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/accounts")
 @Tag(name = "Account", description = "계정 관련 API")
 public class AccountController {
+
     private final AccountService accountService;
 
     @Autowired
@@ -25,8 +26,8 @@ public class AccountController {
 
     @PostMapping
     @Operation(summary = "계정 생성", description = "새로운 계정을 생성합니다.")
-    public ResponseEntity<Account> createAccount(@RequestBody Account account) {
-        Account newAccount = accountService.createAccount(account);
-        return new ResponseEntity<>(newAccount, HttpStatus.CREATED);
+    public ResponseEntity<AccountDTO> createAccount(@RequestBody AccountDTO accountDTO) {
+        AccountDTO newAccountDTO = accountService.createAccount(accountDTO);
+        return new ResponseEntity<>(newAccountDTO, HttpStatus.CREATED);
     }
 }
