@@ -1,5 +1,8 @@
 package SMWU.NaesoneulJAVA.NidonNaedon.services;
 
+import SMWU.NaesoneulJAVA.NidonNaedon.models.AccountBook;
+import SMWU.NaesoneulJAVA.NidonNaedon.repositories.AccountBookRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -7,17 +10,32 @@ import java.util.UUID;
 @Service
 public class InvitationService {
 
+    @Autowired
+    private KakaoService kakaoService;
+
+    @Autowired
+    private AccountBookRepository accountBookRepository;
+
     public String generateInvitationLink(String accountId) {
         String invitationCode = UUID.randomUUID().toString();
-        // Save invitationCode and accountId mapping to database if needed
-        return "https://nidonnaedon.com/invite?code=" + invitationCode + "&accountId=" + accountId;
+        return "https://nidonnaedon.com/invite?accountId=" + accountId;
     }
 
-    public void sendKakaoInvitation(String link) {
-        // 카카오톡 SDK를 이용하여 메시지 보내기
-        // 아래는 예시 코드이며, 실제 구현은 카카오톡 SDK 문서를 참고하여 작성합니다.
-        System.out.println("Sending KakaoTalk invitation link: " + link);
+    public void sendKakaoInvitation(String accessToken, String link) {
+        String message = "초대 메시지 내용";
+        String webUrl = link;
+        String mobileWebUrl = link;
 
-        // Implement KakaoTalk API integration to send the message
+        kakaoService.sendKakaoMessage(accessToken, message, webUrl, mobileWebUrl);
+    }
+
+    public boolean addParticipant(String accountId, String participant) {
+        AccountBook accountBook = accountBookRepository.findByAccountId(accountId).orElse(null);
+        if (accountBook != null) {
+            accountBook.getExpenditureList().add(participant);
+            accountBookRepository.save(accountBook);
+            return true;
+        }
+        return false;
     }
 }

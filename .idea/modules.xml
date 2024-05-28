@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/NidonNaedon.main.iml" filepath="$PROJECT_DIR$/.idea/modules/NidonNaedon.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/NidonNaedon.test.iml" filepath="$PROJECT_DIR$/.idea/modules/NidonNaedon.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SMWU.NaesoneulJAVA.NidonNaedon.test.iml" filepath="$PROJECT_DIR$/.idea/modules/SMWU.NaesoneulJAVA.NidonNaedon.test.iml" />
     </modules>
   </component>
 </project>
