@@ -1,17 +1,22 @@
 spring:
+  application:
+    name: NidonNaedon
+
   datasource:
-    url: jdbc:mysql://localhost:3306/your_database_name
-    username: your_username
-    password: your_password
+    url: jdbc:mysql://localhost:3306/NidonNaedon
+    username: root
+    password: smwu1906
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+    open-in-view: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+
   security:
     oauth2:
       client:
@@ -23,9 +28,34 @@ spring:
             authorization-grant-type: authorization_code
             scope: profile_nickname, profile_image, account_email
             client-name: Kakao
+            provider: kakao # provider 지정
         provider:
           kakao:
             authorization-uri: https://kauth.kakao.com/oauth/authorize
             token-uri: https://kauth.kakao.com/oauth/token
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user-name-attribute: id
+
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+  doc:
+    api-docs:
+      enabled: true
+    swagger-ui:
+      enabled: true
+
+server:
+  port: 8080
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+
+file:
+  upload-dir: /private/var/folders/7z/_bfxtw655ml6_t_bwjk37bdm0000gn/T/tomcat.8080.18164189583399202845/work/Tomcat/localhost/ROOT/uploads

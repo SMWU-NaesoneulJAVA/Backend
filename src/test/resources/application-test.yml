@@ -1,0 +1,10 @@
+spring:
+    datasource:
+        url: jdbc:mysql://localhost:3306/NidonNaedon
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: root
+        password: smwu1906
+    jpa:
+        hibernate:
+            ddl-auto: update
+        database-platform: org.hibernate.dialect.MySQLDialect

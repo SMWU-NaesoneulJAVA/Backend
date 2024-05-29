@@ -1,10 +1,29 @@
 package SMWU.NaesoneulJAVA.NidonNaedon.config;
 
 import SMWU.NaesoneulJAVA.NidonNaedon.models.ExpenditureDetails;
-import java.util.Arrays;
+import SMWU.NaesoneulJAVA.NidonNaedon.repositories.ExchangeRateRepository;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.Optional;
+
+import static org.mockito.Mockito.*;
+
+@ExtendWith(MockitoExtension.class)
 public class BankAPITest {
-    public static void main(String[] args) {
+
+    @Mock
+    private ExchangeRateRepository exchangeRateRepository;
+
+    @InjectMocks
+    private BankAPI bankAPI;
+
+    @Test
+    public void testSetExchangeRateUSD() {
         ExpenditureDetails expenditureUSD = new ExpenditureDetails(
                 "1",
                 "Test Expenditure USD",
@@ -17,11 +36,15 @@ public class BankAPITest {
                 "account1"
         );
 
-        BankAPI bankAPI = new BankAPI();
+        when(exchangeRateRepository.findByCurrencyAndDate(anyString(), anyString())).thenReturn(Optional.empty());
+
         bankAPI.setExchangeRate(expenditureUSD);
 
         System.out.println("Expenditure Exchange Rate (USD): " + expenditureUSD.getExpenditureExchangeRate());
+    }
 
+    @Test
+    public void testSetExchangeRateEUR() {
         ExpenditureDetails expenditureEUR = new ExpenditureDetails(
                 "2",
                 "Test Expenditure EUR",
@@ -33,6 +56,8 @@ public class BankAPITest {
                 "photo.jpg",
                 "account2"
         );
+
+        when(exchangeRateRepository.findByCurrencyAndDate(anyString(), anyString())).thenReturn(Optional.empty());
 
         bankAPI.setExchangeRate(expenditureEUR);
 
