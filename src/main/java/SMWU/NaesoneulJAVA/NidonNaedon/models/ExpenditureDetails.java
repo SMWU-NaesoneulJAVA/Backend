@@ -56,6 +56,9 @@ public class ExpenditureDetails {
     @Schema(description = "지출 카테고리", example = "식사")
     private String expenditureCategory;
 
+    @Schema(description = "사용 비율", example = "0.5")
+    private double proportion;
+
     public ExpenditureDetails() {
     }
 
@@ -74,7 +77,6 @@ public class ExpenditureDetails {
         this.accountId = accountId;
         this.expenditureCategory = "defaultCategory";
     }
-
     public Long getId() {
         return id;
     }
