@@ -24,11 +24,10 @@ spring:
           kakao:
             client-id: 4e4a5f24acd40618c0b9d38377260bc8
             client-secret: 42e47e34f4270ad06a66525a903ae10e
-            redirect-uri: "{baseUrl}/oauth2/callback/{registrationId}"
+            redirect-uri: "http://localhost:8080/oauth2/callback/kakao"  # 명확한 리디렉션 URI 지정
             authorization-grant-type: authorization_code
             scope: profile_nickname, profile_image, account_email
             client-name: Kakao
-            provider: kakao # provider 지정
         provider:
           kakao:
             authorization-uri: https://kauth.kakao.com/oauth/authorize
