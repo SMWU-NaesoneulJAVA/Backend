@@ -18,13 +18,16 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
 
   security:
+    user:
+      name: user
+      password: password
     oauth2:
       client:
         registration:
           kakao:
             client-id: 4e4a5f24acd40618c0b9d38377260bc8
             client-secret: 42e47e34f4270ad06a66525a903ae10e
-            redirect-uri: "http://localhost:8080/oauth2/callback/kakao"  # 명확한 리디렉션 URI 지정
+            redirect-uri: "http://localhost:8080/oauth2/callback/kakao"
             authorization-grant-type: authorization_code
             scope: profile_nickname, profile_image, account_email
             client-name: Kakao

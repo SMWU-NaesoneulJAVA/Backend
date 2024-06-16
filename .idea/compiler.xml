@@ -10,6 +10,8 @@
         <module name="kakaolo.main" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="1.6" />
+    <bytecodeTargetLevel target="1.6">
+      <module name="NidonNaedon" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

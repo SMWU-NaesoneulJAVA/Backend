@@ -5,10 +5,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
+import org.springframework.security.oauth2.client.AuthorizedClientServiceOAuth2AuthorizedClientManager;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.InMemoryOAuth2AuthorizedClientService;
 
 @Configuration
 @EnableWebSecurity
@@ -52,5 +59,36 @@ public class SecurityConfig {
     @Bean
     public OAuth2UserService oAuth2UserService() {
         return new DefaultOAuth2UserService();
+    }
+
+    @Bean
+    public ClientRegistrationRepository clientRegistrationRepository() {
+        return new InMemoryClientRegistrationRepository(this.kakaoClientRegistration());
+    }
+
+    private ClientRegistration kakaoClientRegistration() {
+        return ClientRegistration.withRegistrationId("kakao")
+                .clientId("4e4a5f24acd40618c0b9d38377260bc8")
+                .clientSecret("42e47e34f4270ad06a66525a903ae10e")
+                .scope("profile_nickname", "profile_image", "account_email")
+                .authorizationUri("https://kauth.kakao.com/oauth/authorize")
+                .tokenUri("https://kauth.kakao.com/oauth/token")
+                .userInfoUri("https://kapi.kakao.com/v2/user/me")
+                .userNameAttributeName("id")
+                .clientName("Kakao")
+                .authorizationGrantType(org.springframework.security.oauth2.core.AuthorizationGrantType.AUTHORIZATION_CODE)
+                .redirectUri("{baseUrl}/oauth2/callback/{registrationId}")
+                .build();
+    }
+
+    @Bean
+    public OAuth2AuthorizedClientService authorizedClientService(ClientRegistrationRepository clientRegistrationRepository) {
+        return new InMemoryOAuth2AuthorizedClientService(clientRegistrationRepository);
+    }
+
+    @Bean
+    public OAuth2AuthorizedClientManager authorizedClientManager(ClientRegistrationRepository clientRegistrationRepository,
+                                                                 OAuth2AuthorizedClientService authorizedClientService) {
+        return new AuthorizedClientServiceOAuth2AuthorizedClientManager(clientRegistrationRepository, authorizedClientService);
     }
 }
