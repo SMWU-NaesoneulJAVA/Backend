@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/expenditures")
@@ -17,6 +18,7 @@ import java.util.List;
 public class ExpenditureDetailsController {
 
     private final ExpenditureDetailsService expenditureDetailsService;
+    private static final Logger logger = Logger.getLogger(ExpenditureDetailsController.class.getName());
 
     @Autowired
     public ExpenditureDetailsController(ExpenditureDetailsService expenditureDetailsService) {
@@ -33,6 +35,7 @@ public class ExpenditureDetailsController {
     @PostMapping
     @Operation(summary = "지출 내역 생성", description = "새로운 지출 내역을 생성합니다.")
     public ResponseEntity<ExpenditureDetailsDTO> createExpenditure(@RequestBody ExpenditureDetailsDTO expenditureDetailsDTO) {
+        logger.info("createExpenditure 호출: " + expenditureDetailsDTO);
         ExpenditureDetailsDTO newExpenditureDetailsDTO = expenditureDetailsService.createExpenditure(expenditureDetailsDTO);
         return new ResponseEntity<>(newExpenditureDetailsDTO, HttpStatus.CREATED);
     }

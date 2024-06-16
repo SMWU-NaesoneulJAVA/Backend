@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
 public class ExpenditureDetailsServiceImpl implements ExpenditureDetailsService {
 
     private final ExpenditureDetailsRepository expenditureDetailsRepository;
+    private static final Logger logger = Logger.getLogger(ExpenditureDetailsServiceImpl.class.getName());
 
     @Autowired
     public ExpenditureDetailsServiceImpl(ExpenditureDetailsRepository expenditureDetailsRepository) {
@@ -27,6 +29,7 @@ public class ExpenditureDetailsServiceImpl implements ExpenditureDetailsService 
 
     @Override
     public ExpenditureDetailsDTO createExpenditure(ExpenditureDetailsDTO expenditureDetailsDTO) {
+        logger.info("createExpenditure 서비스 호출: " + expenditureDetailsDTO);
         ExpenditureDetails expenditureDetails = convertToEntity(expenditureDetailsDTO);
         ExpenditureDetails savedExpenditureDetails = expenditureDetailsRepository.save(expenditureDetails);
         return convertToDTO(savedExpenditureDetails);
