@@ -1,0 +1,59 @@
+spring:
+  application:
+    name: NidonNaedon
+
+  datasource:
+    url: jdbc:mysql://nidonnaedon.c5omeo4ok34u.ap-northeast-2.rds.amazonaws.com:3306/nidonnaedon
+    username: admin
+    password: smwu1906
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: 4e4a5f24acd40618c0b9d38377260bc8
+            client-secret: 42e47e34f4270ad06a66525a903ae10e
+            redirect-uri: "http://43.200.1.113:8080/oauth2/callback/kakao"
+            authorization-grant-type: authorization_code
+            scope: profile_nickname, profile_image, account_email
+            client-name: Kakao
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+server:
+  port: 8080
+  servlet:
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+
+file:
+  upload-dir: /private/var/folders/7z/_bfxtw655ml6_t_bwjk37bdm0000gn/T/tomcat.8080.18164189583399202845/work/Tomcat/localhost/ROOT/uploads
