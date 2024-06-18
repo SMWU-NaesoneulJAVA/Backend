@@ -22,8 +22,8 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountDTO createAccount(AccountDTO accountDTO, String userId) {
         Account account = convertToEntity(accountDTO);
-        UUID accountId = UUID.randomUUID();
-        account.setAccountId("ai" + accountId.toString());
+        // UUID accountId = UUID.randomUUID();
+        // account.setAccountId("ai" + accountId.toString()); // 이 부분은 주석 처리
         List<String> participants = account.getAccountParticipantList();
         participants.add(userId);  // 본인을 참여자에 자동 추가
         account.setAccountParticipantList(participants);

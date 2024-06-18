@@ -27,7 +27,7 @@ public class AccountController {
 
     @PostMapping
     @Operation(summary = "계정 생성", description = "새로운 계정을 생성합니다.")
-    public ResponseEntity<AccountDTO> createAccount(@RequestBody AccountDTO accountDTO, @RequestParam String userId) {
+    public ResponseEntity<AccountDTO> createAccount(@RequestBody AccountDTO accountDTO, @RequestParam("userId") String userId) {
         AccountDTO newAccountDTO = accountService.createAccount(accountDTO, userId);
         return new ResponseEntity<>(newAccountDTO, HttpStatus.CREATED);
     }

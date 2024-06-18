@@ -1,5 +1,6 @@
 package SMWU.NaesoneulJAVA.NidonNaedon.controllers;
 
+import SMWU.NaesoneulJAVA.NidonNaedon.dto.UserDTO;
 import SMWU.NaesoneulJAVA.NidonNaedon.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,5 +22,17 @@ public class UserController {
     public ResponseEntity<Boolean> validateUser(@RequestParam("kakaoId") String kakaoId) {
         boolean isValid = userService.validateUser(kakaoId);
         return ResponseEntity.ok(isValid);
+    }
+
+    @GetMapping("/users/nickname")
+    public ResponseEntity<UserDTO> getUserNickname(@RequestParam("kakaoId") String kakaoId) {
+        UserDTO userDTO = userService.getUserNickname(kakaoId);
+        return ResponseEntity.ok(userDTO);
+    }
+
+    @GetMapping("/users/kakaoId")
+    public ResponseEntity<String> getUserKakaoId(@RequestParam("userId") String userId) {
+        String kakaoId = userService.getUserKakaoId(userId);
+        return ResponseEntity.ok(kakaoId);
     }
 }

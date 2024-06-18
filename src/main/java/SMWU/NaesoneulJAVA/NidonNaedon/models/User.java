@@ -1,20 +1,20 @@
 package SMWU.NaesoneulJAVA.NidonNaedon.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "user")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "kakao_id", nullable = false, unique = true)
     private String kakaoId;
-    private String name;
+
+    @Column(name = "nickname", nullable = false)
     private String nickname;
-    private String profileImageUri;
 
     // Getters and Setters
     public Long getId() {
@@ -33,27 +33,11 @@ public class User {
         this.kakaoId = kakaoId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getNickname() {
         return nickname;
     }
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
-    }
-
-    public String getProfileImageUri() {
-        return profileImageUri;
-    }
-
-    public void setProfileImageUri(String profileImageUri) {
-        this.profileImageUri = profileImageUri;
     }
 }
