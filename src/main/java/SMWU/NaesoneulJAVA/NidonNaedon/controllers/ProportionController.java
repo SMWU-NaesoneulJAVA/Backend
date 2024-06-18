@@ -23,7 +23,7 @@ public class ProportionController {
 
     @GetMapping("/account/{accountId}")
     @Operation(summary = "사용 비율 조회", description = "주어진 계정 ID로 사용 비율을 조회합니다.")
-    public ResponseEntity<Map<String, Double>> getProportionByAccountId(@PathVariable("accountId") String accountId) {
+    public ResponseEntity<Map<String, Double>> getProportionByAccountId(@PathVariable("accountId") Long accountId) { // String에서 Long으로 변경
         try {
             Map<String, Double> proportions = proportionService.calculateProportion(accountId);
             return new ResponseEntity<>(proportions, HttpStatus.OK);

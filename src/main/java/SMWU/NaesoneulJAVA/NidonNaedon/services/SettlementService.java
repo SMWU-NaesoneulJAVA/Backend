@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Service
 public class SettlementService {
-// 정산 기능
+    // 정산 기능
     public Map<String, Double> calculateSettlement(List<ExpenditureDetails> expenditures) {
         Map<String, Double> balances = new HashMap<>();
         for (ExpenditureDetails expenditure : expenditures) {
@@ -17,7 +17,8 @@ public class SettlementService {
             for (String participant : expenditure.getExpenditureParticipant()) {
                 balances.put(participant, balances.getOrDefault(participant, 0.0) - amountPerParticipant);
             }
-            balances.put(expenditure.getAccountId(), balances.getOrDefault(expenditure.getAccountId(), 0.0) + expenditure.getExpenditureAmount());
+            Long accountId = expenditure.getAccountId();  // 수정된 부분
+            balances.put(accountId.toString(), balances.getOrDefault(accountId.toString(), 0.0) + expenditure.getExpenditureAmount());
         }
         return balances;
     }

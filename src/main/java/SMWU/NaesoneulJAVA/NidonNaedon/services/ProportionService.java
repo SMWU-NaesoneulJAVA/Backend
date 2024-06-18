@@ -15,7 +15,7 @@ public class ProportionService {
     @Autowired
     private ExpenditureDetailsRepository expenditureDetailsRepository;
 
-    public Map<String, Double> calculateProportion(String accountId) {
+    public Map<String, Double> calculateProportion(Long accountId) {  // String에서 Long으로 변경
         List<ExpenditureDetails> expenditures = expenditureDetailsRepository.findByAccountId(accountId);
         Map<String, Double> totalAmounts = new HashMap<>();
         Map<String, Double> proportions = new HashMap<>();

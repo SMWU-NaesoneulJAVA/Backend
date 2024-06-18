@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -26,8 +27,8 @@ public class AccountController {
 
     @PostMapping
     @Operation(summary = "계정 생성", description = "새로운 계정을 생성합니다.")
-    public ResponseEntity<AccountDTO> createAccount(@RequestBody AccountDTO accountDTO) {
-        AccountDTO newAccountDTO = accountService.createAccount(accountDTO);
+    public ResponseEntity<AccountDTO> createAccount(@RequestBody AccountDTO accountDTO, @RequestParam String userId) {
+        AccountDTO newAccountDTO = accountService.createAccount(accountDTO, userId);
         return new ResponseEntity<>(newAccountDTO, HttpStatus.CREATED);
     }
 }

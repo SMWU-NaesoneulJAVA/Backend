@@ -27,7 +27,7 @@ public class ExpenditureDetailsController {
 
     @GetMapping("/account/{accountId}")
     @Operation(summary = "지출 내역 조회", description = "주어진 계정 ID로 모든 지출 내역을 조회합니다.")
-    public ResponseEntity<List<ExpenditureDetailsDTO>> getAllExpenditureDetailsByAccountId(@PathVariable("accountId") String accountId) {
+    public ResponseEntity<List<ExpenditureDetailsDTO>> getAllExpenditureDetailsByAccountId(@PathVariable("accountId") Long accountId) {  // String에서 Long으로 변경
         List<ExpenditureDetailsDTO> expenditureDetails = expenditureDetailsService.getAllExpenditureDetailsByAccountId(accountId);
         return new ResponseEntity<>(expenditureDetails, HttpStatus.OK);
     }

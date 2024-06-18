@@ -13,8 +13,8 @@ public class User {
     private Long id;
     private String kakaoId;
     private String name;
-    private String profileImageUrl;
     private String nickname;
+    private String profileImageUri;
 
     // Getters and Setters
     public Long getId() {
@@ -41,19 +41,19 @@ public class User {
         this.name = name;
     }
 
-    public String getProfileImageUrl() {
-        return profileImageUrl;
-    }
-
-    public void setProfileImageUrl(String profileImageUrl) {
-        this.profileImageUrl = profileImageUrl;
-    }
-
     public String getNickname() {
         return nickname;
     }
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public String getProfileImageUri() {
+        return profileImageUri;
+    }
+
+    public void setProfileImageUri(String profileImageUri) {
+        this.profileImageUri = profileImageUri;
     }
 }

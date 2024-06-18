@@ -22,7 +22,7 @@ public class ExpenditureDetailsServiceImpl implements ExpenditureDetailsService 
     }
 
     @Override
-    public List<ExpenditureDetailsDTO> getAllExpenditureDetailsByAccountId(String accountId) {
+    public List<ExpenditureDetailsDTO> getAllExpenditureDetailsByAccountId(Long accountId) {
         List<ExpenditureDetails> expenditures = expenditureDetailsRepository.findByAccountId(accountId);
         return expenditures.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
@@ -73,7 +73,7 @@ public class ExpenditureDetailsServiceImpl implements ExpenditureDetailsService 
         dto.setExpenditureParticipant(expenditureDetails.getExpenditureParticipant());
         dto.setExpenditureDate(expenditureDetails.getExpenditureDate());
         dto.setExpenditurePhoto(expenditureDetails.getExpenditurePhoto());
-        dto.setAccountId(expenditureDetails.getAccountId());
+        dto.setAccountId(expenditureDetails.getAccountId());  // 타입을 맞춤
         dto.setExpenditureCategory(expenditureDetails.getExpenditureCategory());
         return dto;
     }
@@ -89,7 +89,7 @@ public class ExpenditureDetailsServiceImpl implements ExpenditureDetailsService 
         expenditureDetails.setExpenditureParticipant(dto.getExpenditureParticipant());
         expenditureDetails.setExpenditureDate(dto.getExpenditureDate());
         expenditureDetails.setExpenditurePhoto(dto.getExpenditurePhoto());
-        expenditureDetails.setAccountId(dto.getAccountId());
+        expenditureDetails.setAccountId(dto.getAccountId());  // 타입을 맞춤
         expenditureDetails.setExpenditureCategory(dto.getExpenditureCategory());
         return expenditureDetails;
     }

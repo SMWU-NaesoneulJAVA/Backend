@@ -1,34 +1,22 @@
 package SMWU.NaesoneulJAVA.NidonNaedon.models;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
-@Schema(description = "계정 정보")
 public class Account {
-
     @Id
-    @Schema(description = "가계부 ID", example = "ai/12345678-1234-1234-1234-123456789012")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
     private String accountId;
-
-    @Schema(description = "가계부 이름", example = "가족 계정")
     private String accountName;
-
-    @Schema(description = "가계부 일정", example = "2023-01-01")
     private String accountSchedule;
-
-    @Schema(description = "가계부 화폐", example = "KRW")
     private String accountCurrency;
-
-    @Schema(description = "가계부 환율", example = "1.0")
     private Double accountExchangeRate;
-
     @ElementCollection
-    @Schema(description = "가계부 참여자 목록")
     private List<String> accountParticipantList;
 
     // Getters and Setters

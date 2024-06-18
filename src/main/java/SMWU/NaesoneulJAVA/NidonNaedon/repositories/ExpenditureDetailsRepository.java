@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ExpenditureDetailsRepository extends JpaRepository<ExpenditureDetails, Long> {
-    List<ExpenditureDetails> findByAccountId(String accountId);
+    List<ExpenditureDetails> findByAccountId(Long accountId);  // String에서 Long으로 변경
 }

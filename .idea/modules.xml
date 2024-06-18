@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/NidonNaedon.main.iml" filepath="$PROJECT_DIR$/.idea/modules/NidonNaedon.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/NidonNaedon.test.iml" filepath="$PROJECT_DIR$/.idea/modules/NidonNaedon.test.iml" />
     </modules>
   </component>
