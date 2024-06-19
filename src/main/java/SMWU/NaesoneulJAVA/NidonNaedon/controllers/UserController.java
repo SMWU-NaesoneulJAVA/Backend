@@ -5,6 +5,7 @@ import SMWU.NaesoneulJAVA.NidonNaedon.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,5 +35,18 @@ public class UserController {
     public ResponseEntity<String> getUserKakaoId(@RequestParam("userId") String userId) {
         String kakaoId = userService.getUserKakaoId(userId);
         return ResponseEntity.ok(kakaoId);
+    }
+
+    @PutMapping("/user/update")
+    public ResponseEntity<Void> updateUser(
+            @RequestParam("kakaoId") String kakaoId,
+            @RequestParam("name") String name,
+            @RequestParam("nickname") String nickname) {
+        boolean success = userService.updateUserData(kakaoId, name, nickname);
+        if (success) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(500).build();
+        }
     }
 }

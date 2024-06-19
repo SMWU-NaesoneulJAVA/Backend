@@ -8,11 +8,15 @@ public class UserDTO {
     @Schema(description = "사용자 ID", example = "user123")
     private String userId;
 
+    @Schema(description = "사용자 이름", example = "이름")
+    private String name;
+
     @Schema(description = "사용자 닉네임", example = "닉네임")
     private String nickname;
 
-    public UserDTO(String userId, String nickname) {
-        this.userId = userId;
+    public UserDTO(String kakaoId, String name, String nickname) {
+        this.userId = kakaoId;
+        this.name = name;
         this.nickname = nickname;
     }
 
@@ -22,6 +26,14 @@ public class UserDTO {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getNickname() {

@@ -13,6 +13,9 @@ public class User {
     @Column(name = "kakao_id", nullable = false, unique = true)
     private String kakaoId;
 
+    @Column(name = "name", nullable = false) // 새로운 필드 추가
+    private String name;
+
     @Column(name = "nickname", nullable = false)
     private String nickname;
 
@@ -31,6 +34,14 @@ public class User {
 
     public void setKakaoId(String kakaoId) {
         this.kakaoId = kakaoId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getNickname() {
