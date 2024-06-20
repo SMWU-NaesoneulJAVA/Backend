@@ -101,4 +101,5 @@ public class SecurityConfig {
         manager.createUser(User.withUsername("user").password("{noop}password").roles("USER").build());
         return manager;
     }
+
 }

@@ -18,13 +18,20 @@ public class Account {
     @Column(nullable = false, unique = true)
     private String accountId;
 
-    private String accountName;
-    private String accountSchedule;
-    private String accountCurrency;
-    private Double accountExchangeRate;
+    @Column(nullable = false)
+    private String accountName = "";
 
-    @Column(columnDefinition = "TEXT")
-    private String accountParticipantList; // JSON 문자열로 저장할 필드
+    @Column(nullable = false)
+    private String accountSchedule = "";
+
+    @Column(nullable = false)
+    private String accountCurrency = "";
+
+    @Column(nullable = false)
+    private Double accountExchangeRate = 0.0;
+
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String accountParticipantList = "[]"; // JSON 문자열로 저장할 필드
 
     @PrePersist
     public void prePersist() {
