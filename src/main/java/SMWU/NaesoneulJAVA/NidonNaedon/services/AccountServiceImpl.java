@@ -43,6 +43,15 @@ public class AccountServiceImpl implements AccountService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public boolean deleteAccount(String accountId) {
+        return accountRepository.findByAccountId(accountId)
+                .map(account -> {
+                    accountRepository.delete(account);
+                    return true;
+                }).orElse(false);
+    }
+
     private Account convertToEntity(AccountDTO accountDTO) {
         Account account = new Account();
         account.setAccountName(accountDTO.getAccountName() != null ? accountDTO.getAccountName() : "");

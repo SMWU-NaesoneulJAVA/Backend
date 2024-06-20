@@ -9,12 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -45,5 +40,12 @@ public class AccountController {
         List<AccountDTO> accounts = accountService.getAllAccounts();
         logger.debug("GET /accounts 응답: {}", accounts);
         return new ResponseEntity<>(accounts, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{accountId}")
+    @Operation(summary = "계정 삭제", description = "주어진 ID로 계정을 삭제합니다.")
+    public ResponseEntity<Void> deleteAccount(@PathVariable("accountId") String accountId) {
+        boolean isDeleted = accountService.deleteAccount(accountId);
+        return new ResponseEntity<>(isDeleted ? HttpStatus.NO_CONTENT : HttpStatus.NOT_FOUND);
     }
 }
